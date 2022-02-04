@@ -1,10 +1,6 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import Prompt1 from '../Prompt1';
-import Prompt2 from '../Prompt2';
-import Prompt3 from '../Prompt3';
-import Prompt4 from '../Prompt4';
-import Prompt5 from '../Prompt5';
+import Prompt from '../Prompt';
 import styles from './styles';
 
 const Title = (props) => {
@@ -15,15 +11,30 @@ const Title = (props) => {
                 <Text style={styles.title}>Talk</Text>
             </View>
 
-            <Prompt1 />
+            <Prompt 
+            prompt={"In 2021, Spider-Man No Way Home became one of the highest grossing movies of all time during the COVID-19 pandemic. Did it save the movie industry?"} 
+            hashtags={"#Film #Superhero #COVID"}
+            />
 
-            <Prompt2 />
+            <Prompt 
+            prompt={"If you could have any super power, what would you choose?"} 
+            hashtags={"#Fun #Daily #Superhero"}
+            />
 
-            <Prompt3 />
+            <Prompt 
+            prompt={"Despite growing tensions, Russia will NOT invade Ukraine."} 
+            hashtags={"#War #Politics #Government"}
+            />
 
-            <Prompt4 />
-
-            <Prompt5 />
+            <Prompt 
+            prompt={"Tom brady will retire at the age of 44."} 
+            hashtags={"#Sports #NFL #Football #GOAT"}
+            />
+            
+            <Prompt 
+            prompt={"The project midpoint is due on February 7th."} 
+            hashtags={"#TALK #Capstone #CS467"}
+            />
 
         </View>
     );
