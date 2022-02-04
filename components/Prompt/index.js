@@ -2,7 +2,8 @@ import React from 'react';
 import {View, Text, Pressable} from 'react-native';
 import styles from './styles';
 
-const Prompt4 = (props) => {
+const Prompt = (props) => {
+    const {prompt, hashtags} = props.prompt;
     return (
         <View style={styles.container}>
             <Pressable style={styles.button}
@@ -11,10 +12,10 @@ const Prompt4 = (props) => {
                 console.warn('Hey there')
             }}
             >
-                <Text style={styles.text}>Tom Brady will retire at the age of 44.
+                <Text style={styles.text}>{prompt}
                 {"\n"}
                 {"\n"}
-                <Text style={styles.hashtags}>#Sports #Football #NFL</Text>
+                <Text style={styles.hashtags}>{hashtags}</Text>
                 </Text>
                 
                 
@@ -23,4 +24,4 @@ const Prompt4 = (props) => {
     );
 };
 
-export default Prompt4;
+export default Prompt;

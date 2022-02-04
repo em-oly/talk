@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import Title from './components/Title';
+import PromptList from './components/PromptList';
 
 export default function App() {
   return (
     <View style={styles.container}>
 
-      <Title />
+      <PromptList />
 
       <StatusBar style="auto" />
     </View>

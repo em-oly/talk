@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 
 const styles = StyleSheet.create({
     container: {
@@ -7,8 +7,7 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: 'white',
-        height: 100,
-        width: '70%',
+        width: Dimensions.get('window').width * .7,
         borderWidth: 2,
         borderRadius: 20,
         justifyContent: 'center',
@@ -25,7 +24,7 @@ const styles = StyleSheet.create({
     
     text: {
         fontFamily: 'monospace',
-        fontSize: 12,
+        fontSize: 14,
         padding: 10,
         fontWeight: '500',
         alignSelf: 'center',
@@ -35,7 +34,7 @@ const styles = StyleSheet.create({
     hashtags: {
         fontFamily: 'monospace',
         color: '#808080',
-        fontSize: 10,
+        fontSize: 12,
         fontWeight: '500',
     }
 
