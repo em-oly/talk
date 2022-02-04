@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     
     text: {
         fontFamily: 'monospace',
-        fonsize: 12,
+        fontSize: 12,
         padding: 10,
         fontWeight: '500',
         alignSelf: 'center',
