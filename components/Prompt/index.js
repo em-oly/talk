@@ -3,7 +3,7 @@ import {View, Text, Pressable} from 'react-native';
 import styles from './styles';
 
 const Prompt = (props) => {
-    const {prompt, hashtags} = props;
+    const {prompt, hashtags} = props.prompt;
     return (
         <View style={styles.container}>
             <Pressable style={styles.button}

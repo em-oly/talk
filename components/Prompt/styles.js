@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 
 const styles = StyleSheet.create({
     container: {
@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: 'white',
-        width: '70%',
+        width: Dimensions.get('window').width * .7,
         borderWidth: 2,
         borderRadius: 20,
         justifyContent: 'center',
