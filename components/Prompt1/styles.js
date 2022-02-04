@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     hashtags: {
         fontFamily: 'monospace',
         color: '#808080',
-        fonsize: 10,
+        fontSize: 10,
         fontWeight: '500',
     }
 
