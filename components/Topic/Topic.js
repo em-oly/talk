@@ -5,8 +5,7 @@ import styles from './styles';
 
 const Topic = ({ route }, props) => {
     console.log(route.params);
-    var prompt = route.params.prompt;
-    var hashtags = route.params.hashtags;
+    const { prompt, hashtags} = route.params
     return (
         <View style={styles.main}>
             <View style={styles.container}> 
