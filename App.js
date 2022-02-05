@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import PromptScreen from './components/PromptList/index';
 import HomeScreen from './components/Home/Home';
+import TopicScreen from './components/Topic/Topic';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,7 @@ const MyStack = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="Prompts" component={PromptScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Topic" component={TopicScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

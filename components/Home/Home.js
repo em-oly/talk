@@ -3,7 +3,7 @@ import {View, Button, Text} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import styles from './styles';
 
-const Home = ({navigation}) => {
+const Home = ({navigation}, props) => {
     return (
         <View style={styles.container}>
                 <Text style={styles.title}>Let's Talk!</Text>
