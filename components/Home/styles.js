@@ -1,20 +1,21 @@
-import { StyleSheet, Dimensions} from "react-native";
+import { StyleSheet} from "react-native";
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#637CAC',
-        height: '100%',
+      flex: 1,
+      backgroundColor: '#637CAC',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
 
-    
     title: {
-        marginTop: '7%',
         width: '100%',
         textAlign: "center",
         fontFamily: 'monospace',
         fontSize: 60,
         fontWeight: '500'
     }
-});
+  
+  });
 
-export default styles; 
+  export default styles;

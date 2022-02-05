@@ -1,17 +1,21 @@
 import React from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, StatusBar} from 'react-native';
 import styles from './styles';
 import prompts from './prompts';
 import Prompt from '../Prompt';
 
 const PromptList = (props) => {
     return (
-        <View style={styles.container}> 
-             <Text style={styles.title}>Talk</Text>
-            <FlatList 
-            data={prompts}
-            renderItem={({item}) => <Prompt prompt={item} />}
-            />
+        <View style={styles.main}>
+            <View style={styles.container}> 
+                    <Text style={styles.title}>Talk</Text>
+                <FlatList 
+                data={prompts}
+                renderItem={({item}) => <Prompt prompt={item} />}
+                keyExtractor={(item, index) => index.toString()}
+                />
+            </View>
+        <StatusBar style="auto" />
         </View>
     );
 };
