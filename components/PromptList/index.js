@@ -5,6 +5,7 @@ import prompts from './prompts';
 import Prompt from '../Prompt';
 
 const PromptList = ({navigation}, props) => {
+    //console.log(prompts);
     return (
         <View style={styles.main}>
             <View style={styles.container}> 
