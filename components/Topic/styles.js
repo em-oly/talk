@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         shadowOffset: {
             height: 1,
             width: 1
-        }
+        },
     },
 
     title: {
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontFamily: 'monospace',
         fontSize: 60,
-        fontWeight: '500'
+        fontWeight: '500',
     },
     
     text: {
@@ -47,7 +47,64 @@ const styles = StyleSheet.create({
         color: '#808080',
         fontSize: 12,
         fontWeight: '500',
-    }
+    },
+
+    commentsContainer: {
+     
+    },
+
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    marginBottom: 20,
+    alignSelf: "flex-end",
+    right: 10
+  },
+  buttonOpen: {
+    backgroundColor: "#6495ed",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    width: Dimensions.get('window').width * .9,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    width: Dimensions.get('window').width * .7, height:200, textAlignVertical: 'top'
+  },
 });
 
 export default styles; 

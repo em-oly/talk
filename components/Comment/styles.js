@@ -2,7 +2,7 @@ import { StyleSheet, Dimensions} from "react-native";
 
 const styles = StyleSheet.create({
     commentContainer: {
-        marginTop: '3%',
+        marginTop: 10,
         backgroundColor: 'white',
         width: Dimensions.get('window').width * .9,
         borderWidth: 2,
