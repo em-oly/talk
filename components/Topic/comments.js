@@ -12,7 +12,7 @@ export default[{
     },
     {   username:"Hass",
         upvotes: 20,
-        body: "There's already enough money in Hollywood"
+        body: "There's already enough money in Holl"
     }
             ]
 }, 
@@ -29,20 +29,6 @@ export default[{
         body: "Invisibility!"
     }
             ]
-}, 
-{
-    commentsArr: [
-        {
-            username: "abc123",
-            upvotes: 102,
-            body: "Super speed, I wanna be Dash!"
-        },
-        {
-            username:"JohnD",
-            upvotes: -15,
-            body: "Invisibility!"
-        }
-                ]
 }, 
 {
     commentsArr: [
@@ -71,4 +57,18 @@ export default[{
             body: "About time, old man"
         }
                 ]
+},
+{
+    commentsArr: [
+    {
+        username: "abc123",
+        upvotes: 102,
+        body: "Gonna be tight"
+    },
+    {
+        username:"JohnD",
+        upvotes: -15,
+        body: "How about we neglect the due date"
+    }
+            ]
 }];
