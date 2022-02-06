@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
 
     promptContainer: {
         backgroundColor: 'white',
+        marginBottom: 10,
         width: Dimensions.get('window').width * .7,
         borderWidth: 2,
         borderRadius: 20,
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        marginTop: '7%',
+        marginTop: '3%',
         width: '100%',
         textAlign: "center",
         fontFamily: 'monospace',

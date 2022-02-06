@@ -18,13 +18,13 @@ const styles = StyleSheet.create({
     upvote: {
         flex: 1,
         backgroundColor: "green",
-        borderTopLeftRadius: 15
+        borderTopLeftRadius: 17
     },
 
     downvote: {
         flex: 1,
         backgroundColor: "red",
-        borderBottomLeftRadius: 15
+        borderBottomLeftRadius: 17
     },
 
    voteText: {
@@ -40,14 +40,32 @@ const styles = StyleSheet.create({
         paddingLeft: 5
 
     },
-    usernameAndBody: { 
+
+    voteStyle: {
+        fontWeight: "bold",
+        fontFamily: 'monospace'
+    },
+
+    commentText: {
+        flexWrap: "wrap",
+        flex: 1,
+        marginBottom: 5,
+        marginTop: 5,
+        paddingRight: 70,
+    },
+
+    userText: { 
+        fontSize: 15,
+        fontWeight: 'bold',
+        flexWrap: "wrap",
+        flex: 1,
+        fontFamily: 'monospace',
         
     },
 
-    text: {
-        paddingRight: 70,
-        marginBottom: 5,
+    bodyText: {
         flexWrap: "wrap",
+        flex: 1,
         fontFamily: 'monospace',
     }
 });

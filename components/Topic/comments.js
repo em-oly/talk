@@ -8,7 +8,7 @@ export default[{
     {
         username:"JohnD",
         upvotes: -15,
-        body: "the movie industry does not need Spider-Man the movie industry does not need Spider-Man the movie industry does not need Spider-Man the movie industry does not need Spider-Man"
+        body: "the movie industry does not need Spider-Man the movie industry does not need Spider-Man the movie industry does not need Spider-Man the movie industry does not need Spider-Man does not need Spider-Man the movie industry does not need Spider-Man the movie industry does not need Spider-Man"
     },
     {   username:"Hass",
         upvotes: 20,
