@@ -24,13 +24,12 @@ const Topic = ({ route }, props) => {
                     <Text style={styles.hashtags}>{hashtags}</Text>
                     </Text>           
                 </View>
-
-                <FlatList 
-                data={listComments}
-                renderItem={({item}) => 
-                    <Comment comment={item} />
-                } 
-                keyExtractor={(item, index) => index.toString()}
+                    <FlatList
+                    data={listComments}
+                    renderItem={({item}) => 
+                        <Comment comment={item} />
+                    } 
+                    keyExtractor={(item, index) => index.toString()}
                 />
             </View>
             <StatusBar style="auto" />

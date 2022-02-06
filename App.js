@@ -15,10 +15,10 @@ const MyStack = () => {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: true }}
         />
-        <Stack.Screen name="Prompts" component={PromptScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Topic" component={TopicScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Prompts" component={PromptScreen} options={{ headerShown: true }} />
+        <Stack.Screen name="Topic" component={TopicScreen} options={{ headerShown: true }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

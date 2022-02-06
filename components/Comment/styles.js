@@ -37,17 +37,18 @@ const styles = StyleSheet.create({
     voteCount: {
         width:"10%",
         alignSelf: "center",
-        justifyContent: "center",
         paddingLeft: 5
 
     },
-    usernameAndBody: {
-        borderLeftWidth: 2,
-        flex: 4,
+    usernameAndBody: { 
+
     },
 
     text: {
+        marginBottom: 5,
+        paddingRight: 70,
         flexWrap: "wrap",
+        fontFamily: 'monospace',
     }
 });
 

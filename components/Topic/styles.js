@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#637CAC',
         height: '100%',
     },
+
     button: {
         backgroundColor: 'white',
         width: Dimensions.get('window').width * .7,
