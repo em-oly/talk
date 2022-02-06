@@ -12,7 +12,7 @@ export default[{
     },
     {   username:"Hass",
         upvotes: 20,
-        body: "There's already enough money in Holl"
+        body: "There's already enough money in Hollywood"
     }
             ]
 }, 

@@ -7,11 +7,11 @@ import comments from './comments';
 
 
 const Topic = ({ route }, props) => {
-    console.log(route.params);
+    //console.log(route.params);
     const { prompt, hashtags, listId} = route.params;
 
     const listComments = comments[listId].commentsArr;
-    console.log(listComments);
+    //console.log(listComments);
 
     return (
         <View style={styles.main}>

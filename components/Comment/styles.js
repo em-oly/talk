@@ -1,5 +1,4 @@
 import { StyleSheet, Dimensions} from "react-native";
-import { YellowBox } from "react-native-web";
 
 const styles = StyleSheet.create({
     commentContainer: {
@@ -23,7 +22,7 @@ const styles = StyleSheet.create({
     },
 
     downvote: {
-        flex: 2,
+        flex: 1,
         backgroundColor: "red",
         borderBottomLeftRadius: 15
     },
@@ -44,8 +43,6 @@ const styles = StyleSheet.create({
     },
     usernameAndBody: {
         borderLeftWidth: 2,
-        position: "absolute",
-        backgroundColor: "yellow",
         flex: 4,
     },
 
