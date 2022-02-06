@@ -6,14 +6,36 @@ import styles from './styles';
 const Comment = (props) => {
     const {username, upvotes, body} = props.comment;
     //console.log(props.comment)
-    const [counter, setCounter] = useState(0)
+    const [counter, setCounter] = useState(upvotes)
+    const [decremented, setDecremented] = useState(false);
+    const [incremented, setIncremented] = useState(false);
 
     const increment = () => {
-        setCounter(counter + 1);
+        if(incremented){
+            return
+        } else {
+            if (decremented){
+                setDecremented(false);
+                setCounter(counter + 1);
+            } else {
+                setIncremented(true)
+                setCounter(counter + 1);
+            }
+        }
     }
 
     const decrement = () => {
-        setCounter(counter - 1);
+        if(decremented){
+            return
+        } else {
+            if (incremented){
+                setIncremented(false);
+                setCounter(counter - 1);
+            } else {
+                setDecremented(true)
+                setCounter(counter - 1);
+            }
+        }
     }
       
     return (
