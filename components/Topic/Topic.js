@@ -5,7 +5,6 @@ import Comment from '../Comment/Comment'
 import comments from './comments';
 
 
-
 const Topic = ({ route }, props) => {
     //console.log(route.params);
     const { prompt, hashtags, listId} = route.params;
@@ -14,10 +13,9 @@ const Topic = ({ route }, props) => {
     //console.log(listComments);
 
     return (
-        <View style={styles.main}>
             <View style={styles.container}> 
                 <Text style={styles.title}>Talk</Text>
-                <View style={styles.button}>
+                <View style={styles.promptContainer}>
                     <Text style={styles.text}>{prompt}
                     {"\n"}
                     {"\n"}
@@ -31,9 +29,8 @@ const Topic = ({ route }, props) => {
                     } 
                     keyExtractor={(item, index) => index.toString()}
                 />
+                <StatusBar style="auto" />
             </View>
-            <StatusBar style="auto" />
-        </View>
     );
 };
 

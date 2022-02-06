@@ -41,12 +41,12 @@ const styles = StyleSheet.create({
 
     },
     usernameAndBody: { 
-
+        
     },
 
     text: {
-        marginBottom: 5,
         paddingRight: 70,
+        marginBottom: 5,
         flexWrap: "wrap",
         fontFamily: 'monospace',
     }

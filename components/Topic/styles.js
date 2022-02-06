@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
         height: '100%',
     },
 
-    button: {
+    promptContainer: {
         backgroundColor: 'white',
         width: Dimensions.get('window').width * .7,
         borderWidth: 2,

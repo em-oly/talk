@@ -7,7 +7,6 @@ import Prompt from '../Prompt';
 const PromptList = ({navigation}, props) => {
     //console.log(prompts);
     return (
-        <View style={styles.main}>
             <View style={styles.container}> 
                     <Text style={styles.title}>Talk</Text>
                 <FlatList 
@@ -18,9 +17,8 @@ const PromptList = ({navigation}, props) => {
                 } 
                 keyExtractor={(item, index) => index.toString()}
                 />
+            <StatusBar style="auto" />
             </View>
-        <StatusBar style="auto" />
-        </View>
     );
 };
 
