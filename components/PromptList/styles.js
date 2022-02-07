@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
 
     
     title: {
-        marginTop: '7%',
+        marginTop: '3%',
         width: '100%',
         textAlign: "center",
         fontFamily: 'monospace',

@@ -6,12 +6,7 @@ const Prompt = (props) => {
     const {prompt, hashtags} = props.prompt;
     return (
         <View style={styles.container}>
-            <Pressable style={styles.button}
-            style={styles.button}
-            onPress={() => {
-                console.warn('Hey there')
-            }}
-            >
+            <View style={styles.button}>
                 <Text style={styles.text}>{prompt}
                 {"\n"}
                 {"\n"}
@@ -19,7 +14,7 @@ const Prompt = (props) => {
                 </Text>
                 
                 
-            </Pressable>
+            </View>
         </View>
     );
 };
