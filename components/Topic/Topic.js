@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import {Pressable, Alert, View, Text, FlatList, StatusBar, Modal, TextInput} from 'react-native';
 import styles from './styles';
 import Comment from '../Comment/Comment'
-//import comments from './comments';
 import { getFirestore, collection, onSnapshot, addDoc } from 'firebase/firestore';
 import fb from '../../firebaseConfig.js';
+import { getAuth} from "firebase/auth";
 
 
 const Topic = ({ route }) => {
     const { prompt, hashtags, listId } = route.params;
     const db = getFirestore(fb);
+    const auth = getAuth();
+    const username = auth.currentUser.displayName;
 
 
     // Retrieves all comments for a prompt
@@ -23,21 +25,21 @@ const Topic = ({ route }) => {
                 comments.push({...doc.data()})
                 })
         })
+        console.log(comments);
         return comments   
     };
 
     // Handles textinput and adds new comment to database
-    var addComment = (text) => {
-        if (!text)
-        {
-        Alert.alert("You entered nothing");
+    var addComment = (text, name) => {
+        if (!text) {
+            Alert.alert("You entered nothing");
         } else {
-            var updatedComments = [...listComments, {username: "you", upvotes: 1, body: text}];
+            var updatedComments = [...listComments, {username: name, upvotes: 1, body: text}];
             setListState(updatedComments);
             updateList(updatedComments);
             const path = "comments/prompt"+listId+"/userComments/";
             addDoc(collection(db, path), {
-                username: "you",
+                username: username,
                 upvotes: 1,
                 body: text
             });
@@ -99,7 +101,7 @@ const Topic = ({ route }) => {
                             />
                             <Pressable
                             style={[styles.button, styles.buttonClose]}
-                            onPress={() => addComment(text)}
+                            onPress={() => addComment(text, username)}
                             >
                             <Text style={styles.textStyle}>Submit</Text>
                             </Pressable>
