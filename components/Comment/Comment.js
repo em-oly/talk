@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import {View, Text, Button, Pressable} from 'react-native';
-import { getAuth} from "firebase/auth";
+import {View, Text, Pressable} from 'react-native';
+import { getAuth } from "firebase/auth";
 import styles from './styles';
 
 
 const Comment = (props) => {
 
     let {username, upvotes, body} = props.comment;
-    //console.log(props.comment)
 
     const auth = getAuth();
     const displayName = auth.currentUser.displayName;
