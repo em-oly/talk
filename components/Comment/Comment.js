@@ -53,13 +53,11 @@ const Comment = (props) => {
     return (
         <View style={styles.commentContainer}>
             <View style={styles.voteButtons}>
-                <TouchableOpacity onPress={increment}
-                style={styles.upvote}>
+                <TouchableOpacity onPress={increment}>
                     <AntDesign name='arrowup' size={18}/>
                 </TouchableOpacity>
                     
-                <TouchableOpacity onPress={decrement}
-                style={styles.downvote}>
+                <TouchableOpacity onPress={decrement}>
                     <AntDesign name='arrowdown' size={18}/>
                 </TouchableOpacity>
 
@@ -75,6 +73,14 @@ const Comment = (props) => {
             {"\n"}
             <Text style={styles.bodyText}>{body}</Text>
             </Text>
+
+            <View style={styles.flagButton}>
+                <TouchableOpacity onPress={increment}>
+                    <AntDesign name='flag' size={18}/>
+                </TouchableOpacity>
+                    
+
+            </View>
 
             
             

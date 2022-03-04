@@ -16,17 +16,15 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
 
-   voteText: {
-        color: "white",
-        fontSize: 20,
-        padding: 10,
-        textAlign: "center",
-   },
+    flagButton: {
+        width: "10%",
+        alignSelf: 'center',
+        
+    },
 
     voteCount: {
         width:"10%",
         alignSelf: "center",
-        paddingLeft: 5
 
     },
 
