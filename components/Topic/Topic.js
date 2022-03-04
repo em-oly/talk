@@ -6,10 +6,11 @@ import { getFirestore, collection, onSnapshot, addDoc } from 'firebase/firestore
 import fb from '../../firebaseConfig.js';
 import { getAuth} from "firebase/auth";
 
+const db = getFirestore(fb);
+
 
 const Topic = ({ route }) => {
     const { prompt, hashtags, listId } = route.params;
-    const db = getFirestore(fb);
     const auth = getAuth();
     const username = auth.currentUser.displayName;
 
@@ -22,7 +23,9 @@ const Topic = ({ route }) => {
         let comments = [];
         onSnapshot(commentsRef, (snapshot) => {
             snapshot.docs.forEach((doc) => {
-                comments.push({...doc.data()})
+                console.log("Comment ID: ",doc.id);
+                let docID = doc.id;
+                comments.push({...doc.data(), docID, listId})
                 })
         })
         console.log(comments);
@@ -30,19 +33,19 @@ const Topic = ({ route }) => {
     };
 
     // Handles textinput and adds new comment to database
-    var addComment = (text, name) => {
+    const addComment = (text, name) => {
         if (!text) {
             Alert.alert("You entered nothing");
         } else {
-            var updatedComments = [...listComments, {username: name, upvotes: 1, body: text}];
-            setListState(updatedComments);
-            updateList(updatedComments);
             const path = "comments/prompt"+listId+"/userComments/";
-            addDoc(collection(db, path), {
+            const newCommentRef = addDoc(collection(db, path), {
                 username: username,
                 upvotes: 1,
                 body: text
             });
+            var updatedComments = [...listComments, {username: name, upvotes: 1, body: text, docID: newCommentRef.id, listId: listId}];
+            updateList(updatedComments);
+            setListState(listComments);
         }
         setModalVisible(!modalVisible)
         onChangeText("")
@@ -61,7 +64,7 @@ const Topic = ({ route }) => {
 
     // console.log(listState);
 
-    //console.log(listComments);
+    console.log(listComments);
 
     return (
             <View style={styles.container}> 
@@ -116,7 +119,8 @@ const Topic = ({ route }) => {
                     renderItem={({item}) => 
                         <Comment comment={item} />
                     } 
-                    keyExtractor={(item, index) => index.toString()}
+                    keyExtractor={(item) => item.docID}
+                    extraData={listState}
                 />
                 <StatusBar style="auto" />
             </View>

@@ -2,11 +2,16 @@ import React, { useState } from 'react';
 import {View, Text, Pressable} from 'react-native';
 import { getAuth } from "firebase/auth";
 import styles from './styles';
+import fb from '../../firebaseConfig.js';
+import { getFirestore, doc, getDoc, updateDoc, setDoc, increment } from 'firebase/firestore';
+
+
+const db = getFirestore(fb);
 
 
 const Comment = (props) => {
 
-    let {username, upvotes, body} = props.comment;
+    let {username, upvotes, body, docID, listId} = props.comment;
 
     const auth = getAuth();
     const displayName = auth.currentUser.displayName;
@@ -20,29 +25,80 @@ const Comment = (props) => {
     const [decremented, setDecremented] = useState(false);
     const [incremented, setIncremented] = useState(false);
 
-    const increment = () => {
-        if(incremented){
+    const incrementVote = async () => {
+        const commentPath = "comments/prompt"+listId+"/userComments";
+        const commentRef = doc(db, commentPath, docID);
+        const votesPath = "users/"+auth.currentUser.uid+"/votes";
+        const voteRef = doc(db, votesPath, docID);
+        let voteSnap = await getDoc(voteRef);
+
+        if (!voteSnap.exists()) {
+            await setDoc(doc(db, votesPath, docID), {
+                upvoted: false,
+                downvoted: false
+            });
+        }
+        voteSnap = await getDoc(voteRef);
+        let voteData = voteSnap.data();
+        if(incremented || voteData.upvoted == true){
             return
         } else {
-            if (decremented){
+            if (decremented || voteData.downvoted == true){
                 setDecremented(false);
+                await updateDoc(voteRef, {downvoted: false});
+                await updateDoc(commentRef, {upvotes: increment(1)});
                 setCounter(counter + 1);
             } else {
                 setIncremented(true)
+                await updateDoc(voteRef, {upvoted: true});
+                await updateDoc(commentRef, {upvotes: increment(1)});
                 setCounter(counter + 1);
             }
         }
+        
+
+
+        // if(incremented){
+        //     return
+        // } else {
+        //     if (decremented){
+        //         setDecremented(false);
+        //         setCounter(counter + 1);
+        //     } else {
+        //         setIncremented(true)
+        //         setCounter(counter + 1);
+        //     }
+        // }
     }
 
-    const decrement = () => {
+    const decrementVote = async () => {
+        const commentPath = "comments/prompt"+listId+"/userComments";
+        const commentRef = doc(db, commentPath, docID);
+        const votesPath = "users/"+auth.currentUser.uid+"/votes";
+        const voteRef = doc(db, votesPath, docID);
+        let voteSnap = await getDoc(voteRef);
+
+        if (!voteSnap.exists()) {
+            await setDoc(doc(db, votesPath, docID), {
+                upvoted: false,
+                downvoted: false
+            });
+        }
+        voteSnap = await getDoc(voteRef);
+        let voteData = voteSnap.data();
+
         if(decremented){
             return
         } else {
-            if (incremented){
+            if (incremented || voteData.upvoted == true){
                 setIncremented(false);
+                await updateDoc(voteRef, {upvoted: false});
+                await updateDoc(commentRef, {upvotes: increment(-1)});
                 setCounter(counter - 1);
             } else {
                 setDecremented(true)
+                await updateDoc(voteRef, {downvoted: true});
+                await updateDoc(commentRef, {upvotes: increment(-1)});
                 setCounter(counter - 1);
             }
         }
@@ -51,12 +107,12 @@ const Comment = (props) => {
     return (
         <View style={styles.commentContainer}>
             <View style={styles.voteButtons}>
-                <Pressable onPress={increment}
+                <Pressable onPress={incrementVote}
                 style={styles.upvote}>
                     <Text style={styles.voteText}>+</Text>
                 </Pressable>
                     
-                <Pressable onPress={decrement}
+                <Pressable onPress={decrementVote}
                 style={styles.downvote}>
                     <Text style={styles.voteText}>-</Text>
                 </Pressable>
