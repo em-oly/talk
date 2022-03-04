@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import {View, Text, Pressable} from 'react-native';
 import { getAuth } from "firebase/auth";
 import styles from './styles';
+import { AntDesign } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native';
 
 
 const Comment = (props) => {
@@ -51,15 +53,15 @@ const Comment = (props) => {
     return (
         <View style={styles.commentContainer}>
             <View style={styles.voteButtons}>
-                <Pressable onPress={increment}
+                <TouchableOpacity onPress={increment}
                 style={styles.upvote}>
-                    <Text style={styles.voteText}>+</Text>
-                </Pressable>
+                    <AntDesign name='arrowup' size={18}/>
+                </TouchableOpacity>
                     
-                <Pressable onPress={decrement}
+                <TouchableOpacity onPress={decrement}
                 style={styles.downvote}>
-                    <Text style={styles.voteText}>-</Text>
-                </Pressable>
+                    <AntDesign name='arrowdown' size={18}/>
+                </TouchableOpacity>
 
             </View>
 

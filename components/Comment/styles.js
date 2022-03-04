@@ -17,14 +17,12 @@ const styles = StyleSheet.create({
 
     upvote: {
         flex: 1,
-        backgroundColor: "green",
-        borderTopLeftRadius: 17
+        borderTopStartRadius:5
     },
 
     downvote: {
         flex: 1,
-        backgroundColor: "red",
-        borderBottomLeftRadius: 17
+        borderBottomEndRadius: 5
     },
 
    voteText: {
