@@ -11,18 +11,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     voteButtons: {
-        width: "10%",
+        width: "5%",
+        alignSelf: 'center',
         flexDirection: 'column',
-    },
-
-    upvote: {
-        flex: 1,
-        borderTopStartRadius:5
-    },
-
-    downvote: {
-        flex: 1,
-        borderBottomEndRadius: 5
     },
 
    voteText: {
