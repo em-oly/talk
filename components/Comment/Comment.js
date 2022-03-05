@@ -13,17 +13,16 @@ const Comment = (props) => {
 
     let {username, upvotes, body, commentId, listId} = props.comment;
 
+    const [counter, setCounter] = useState(upvotes)
+    const [decremented, setDecremented] = useState(false);
+    const [incremented, setIncremented] = useState(false);
+
     const auth = getAuth();
     const displayName = auth.currentUser.displayName;
 
     if (username == displayName) {
         username = username + " (you)";
     }
-
-
-    const [counter, setCounter] = useState(upvotes)
-    const [decremented, setDecremented] = useState(false);
-    const [incremented, setIncremented] = useState(false);
 
     const incrementVote = async () => {
         const commentPath = "comments/prompt"+listId+"/userComments";
