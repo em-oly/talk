@@ -17,8 +17,8 @@ const Topic = ({ route }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [text, onChangeText] = useState("");
     const [firstLoad, setIsLoading] = useState(true);
-
     const [listState, setList] = useState([]);
+    // const [newPost, setNewPost] = useState(null);
 
 
 
@@ -60,18 +60,17 @@ const Topic = ({ route }) => {
             });
             //let updatedComments = [...listComments, {username: name, upvotes: 1, body: text, commentId: newCommentRef.id, listId: listId}];
             setList([...listState, {username: name, upvotes: 0, body: text, commentId: newCommentId, listId: listId}]);
+            // setNewPost({username: name, upvotes: 0, body: text, commentId: newCommentId, listId: listId})
             //getComments(listId);
         }
         setModalVisible(!modalVisible)
         onChangeText("")
         //setTimeout("console.log('Please wait for a minute before the next reply');", 60000);
     };
-
+    
 
     useEffect(() => {
-        if (firstLoad) {
         getComments(listId);
-        }
     }, [])
     
     //console.log(listComments);
@@ -134,7 +133,7 @@ const Topic = ({ route }) => {
                         <Comment comment={item} />
                     } 
                     keyExtractor={(item, index) => index.toString()}
-                    // extraData={listState}
+
                 />
                 <StatusBar style="auto" />
             </View>

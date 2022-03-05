@@ -119,7 +119,7 @@ const Comment = (props) => {
         voteSnap = await getDoc(voteRef);
         let voteData = voteSnap.data();
 
-        if(decremented){
+        if(decremented || voteData.upvoted == true){
             return
         } else {
             if (incremented || voteData.upvoted == true){
