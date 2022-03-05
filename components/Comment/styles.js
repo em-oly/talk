@@ -4,14 +4,14 @@ const styles = StyleSheet.create({
     commentContainer: {
         marginTop: 10,
         backgroundColor: 'white',
-        width: Dimensions.get('window').width * .9,
+        width: Dimensions.get('window').width * .8,
         borderWidth: 2,
         borderRadius: 20,
         alignSelf: 'center',
         flexDirection: 'row'
     },
     voteButtons: {
-        width: "5%",
+        marginLeft: 10,
         alignSelf: 'center',
         flexDirection: 'column',
     },
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     },
 
     voteCount: {
-        width:"10%",
+        margin: 20,
         alignSelf: "center",
 
     },
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginBottom: 5,
         marginTop: 5,
-        paddingRight: 70,
+        paddingRight: 20,
     },
 
     userText: { 
