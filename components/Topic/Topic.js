@@ -98,6 +98,7 @@ const Topic = ({ route }) => {
                             value={text}
                             multiline = {true}
                             numberOfLines = {10}
+                            maxLength={150}
                             />
                             <Pressable
                             style={[styles.button, styles.buttonClose]}
