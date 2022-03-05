@@ -24,8 +24,8 @@ const Topic = ({ route }) => {
         onSnapshot(commentsRef, (snapshot) => {
             snapshot.docs.forEach((doc) => {
                 console.log("Comment ID: ",doc.id);
-                let docID = doc.id;
-                comments.push({...doc.data(), docID, listId})
+                let commentId = doc.id;
+                comments.push({...doc.data(), commentId, listId})
                 })
         })
         console.log(comments);
@@ -43,7 +43,7 @@ const Topic = ({ route }) => {
                 upvotes: 1,
                 body: text
             });
-            var updatedComments = [...listComments, {username: name, upvotes: 1, body: text, docID: newCommentRef.id, listId: listId}];
+            var updatedComments = [...listComments, {username: name, upvotes: 1, body: text, commentId: newCommentRef.id, listId: listId}];
             updateList(updatedComments);
             setListState(listComments);
         }
@@ -119,7 +119,7 @@ const Topic = ({ route }) => {
                     renderItem={({item}) => 
                         <Comment comment={item} />
                     } 
-                    keyExtractor={(item) => item.docID}
+                    keyExtractor={(item, index) => index.toString()}
                     extraData={listState}
                 />
                 <StatusBar style="auto" />

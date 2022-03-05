@@ -11,7 +11,7 @@ const db = getFirestore(fb);
 
 const Comment = (props) => {
 
-    let {username, upvotes, body, docID, listId} = props.comment;
+    let {username, upvotes, body, commentId, listId} = props.comment;
 
     const auth = getAuth();
     const displayName = auth.currentUser.displayName;
@@ -27,13 +27,13 @@ const Comment = (props) => {
 
     const incrementVote = async () => {
         const commentPath = "comments/prompt"+listId+"/userComments";
-        const commentRef = doc(db, commentPath, docID);
+        const commentRef = doc(db, commentPath, commentId);
         const votesPath = "users/"+auth.currentUser.uid+"/votes";
-        const voteRef = doc(db, votesPath, docID);
+        const voteRef = doc(db, votesPath, commentId);
         let voteSnap = await getDoc(voteRef);
 
         if (!voteSnap.exists()) {
-            await setDoc(doc(db, votesPath, docID), {
+            await setDoc(doc(db, votesPath, commentId), {
                 upvoted: false,
                 downvoted: false
             });
@@ -55,31 +55,17 @@ const Comment = (props) => {
                 setCounter(counter + 1);
             }
         }
-        
-
-
-        // if(incremented){
-        //     return
-        // } else {
-        //     if (decremented){
-        //         setDecremented(false);
-        //         setCounter(counter + 1);
-        //     } else {
-        //         setIncremented(true)
-        //         setCounter(counter + 1);
-        //     }
-        // }
     }
 
     const decrementVote = async () => {
         const commentPath = "comments/prompt"+listId+"/userComments";
-        const commentRef = doc(db, commentPath, docID);
+        const commentRef = doc(db, commentPath, commentId);
         const votesPath = "users/"+auth.currentUser.uid+"/votes";
-        const voteRef = doc(db, votesPath, docID);
+        const voteRef = doc(db, votesPath, commentId);
         let voteSnap = await getDoc(voteRef);
 
         if (!voteSnap.exists()) {
-            await setDoc(doc(db, votesPath, docID), {
+            await setDoc(doc(db, votesPath, commentId), {
                 upvoted: false,
                 downvoted: false
             });

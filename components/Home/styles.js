@@ -14,7 +14,16 @@ const styles = StyleSheet.create({
         fontFamily: 'monospace',
         fontSize: 60,
         fontWeight: '500'
-    }
+    },
+    input: {
+      height: 32,
+      width: "20%",
+      margin: 12,
+      borderWidth: 1,
+      padding: 10,
+      backgroundColor: "white",
+      fontFamily: 'monospace'
+    },
   
   });
 
