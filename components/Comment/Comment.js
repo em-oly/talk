@@ -57,6 +57,7 @@ const Comment = (props) => {
             await setDoc(doc(db, hiddenCommentsPath, commentId), {
                 hidden: true
             });
+            setShouldShow(false);
         } else {
             let hiddenComments = hiddenSnap.data();
             if (hiddenComments.hidden == true) {
