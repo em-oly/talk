@@ -46,6 +46,7 @@ const Topic = ({ route }) => {
         }
         setModalVisible(!modalVisible)
         onChangeText("")
+        //setTimeout("console.log('Please wait for a minute before the next reply');", 60000);
     };
 
     let comments = getComments(listId);
@@ -59,6 +60,7 @@ const Topic = ({ route }) => {
 
     const [listState, setListState] = useState(listComments)
 
+    
     // console.log(listState);
 
     //console.log(listComments);
@@ -98,7 +100,7 @@ const Topic = ({ route }) => {
                             value={text}
                             multiline = {true}
                             numberOfLines = {10}
-                            maxLength={150}
+                            maxLength={255}
                             />
                             <Pressable
                             style={[styles.button, styles.buttonClose]}
@@ -106,11 +108,12 @@ const Topic = ({ route }) => {
                             >
                             <Text style={styles.textStyle}>Submit</Text>
                             </Pressable>
+                            
                         </View>
                         </View>
                     </Modal>
                 </View>
-
+                
                     <FlatList
                     style={styles.commentsContainer}
                     data={listState}
