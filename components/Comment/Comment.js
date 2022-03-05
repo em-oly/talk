@@ -16,16 +16,17 @@ const Comment = (props) => {
 
     let {username, upvotes, body, commentId, listId} = props.comment;
 
+    const auth = getAuth();
+    const displayName = auth.currentUser.displayName;
+
     const [counter, setCounter] = useState(upvotes)
     const [decremented, setDecremented] = useState(false);
     const [incremented, setIncremented] = useState(false);
-    const [shouldShow, setShouldShow] = useState(true);
+    const [shouldShow, setShouldShow] = useState(false);
     const [shouldShowbestbadge, setShouldShowbestbadge] = useState(false);
     const [shouldShowbadbadge, setShouldShowbadbadge] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
 
-    const auth = getAuth();
-    const displayName = auth.currentUser.displayName;
 
     if (username == displayName) {
         username = username + " (you)";
