@@ -36,11 +36,38 @@ const Comment = (props) => {
         username = username + " (FUNNIEST)";
         setModalVisible(!modalVisible);
     }
+    const checkComment = async () => {
+        const checkHiddenComment = doc(db, "users/"+auth.currentUser.uid+"/hidden", commentId);
+        let hiddenSnap = await getDoc(checkHiddenComment);
+        if (hiddenSnap.exists()) {
+            let hiddenData = hiddenSnap.data();
+            if (hiddenData.hidden == true) {
+                setShouldShow(false);
+            }
+        }
+    }
 
-    // const hideComment = () => {
+    checkComment();
 
-    //     setShouldShow(!shouldShow)
-    // }
+    const hideComment = async () => {
+        const checkHiddenComment = doc(db, "users/"+auth.currentUser.uid+"/hidden", commentId);
+        let hiddenSnap = await getDoc(checkHiddenComment);
+        if (!hiddenSnap.exists()) {
+            const hiddenCommentsPath = "users/"+auth.currentUser.uid+"/hidden";
+            await setDoc(doc(db, hiddenCommentsPath, commentId), {
+                hidden: true
+            });
+        } else {
+            let hiddenComments = hiddenSnap.data();
+            if (hiddenComments.hidden == true) {
+                await updateDoc(checkHiddenComment, {hidden: false});
+                setShouldShow(true);
+            } else {
+                await updateDoc(checkHiddenComment, {hidden: true});
+                setShouldShow(false);
+            }
+        }
+    }
 
     const incrementVote = async () => {
         const commentPath = "comments/prompt"+listId+"/userComments";
@@ -199,7 +226,7 @@ const Comment = (props) => {
                
 
             <View style={styles.flagButton}>
-                <TouchableOpacity onPress={() => setShouldShow(!shouldShow)}>
+                <TouchableOpacity onPress={() => hideComment()}>
                     <Entypo name='eye-with-line' size={18}/>
                 </TouchableOpacity>
                     
