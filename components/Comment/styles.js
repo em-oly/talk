@@ -11,33 +11,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     voteButtons: {
-        width: "10%",
+        marginLeft: 10,
+        alignSelf: 'center',
         flexDirection: 'column',
     },
 
-    upvote: {
-        flex: 1,
-        backgroundColor: "green",
-        borderTopLeftRadius: 17
-    },
-
-    downvote: {
-        flex: 1,
-        backgroundColor: "red",
-        borderBottomLeftRadius: 17
-    },
-
-   voteText: {
-        color: "white",
-        fontSize: 20,
-        padding: 10,
-        textAlign: "center",
-   },
-
     voteCount: {
-        width:"10%",
+        margin: 20,
         alignSelf: "center",
-        paddingLeft: 5
 
     },
 
@@ -51,7 +32,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginBottom: 5,
         marginTop: 5,
-        paddingRight: 70,
+        paddingRight: 20,
     },
 
     userText: { 
@@ -67,7 +48,67 @@ const styles = StyleSheet.create({
         flexWrap: "wrap",
         flex: 1,
         fontFamily: 'monospace',
-    }
+    },
+    
+    badgeButton: {
+        width: "10%",
+        alignSelf: 'center',
+        
+    },
+    flagButton: {
+        width: "10%",
+        margin: 10,
+        alignSelf: 'center',
+        
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+      },
+      centeredView: {
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+      },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        width: Dimensions.get('window').width * .9,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+      },
+    buttonClose: {
+        backgroundColor: "#2196F3",
+      },
+    textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+      },
+
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2,
+        marginBottom: 20,
+        alignSelf: "center",
+        right: 10
+      },
+
+      badge: {
+        flex: 1
+    },
+
+    
 });
 
 export default styles; 

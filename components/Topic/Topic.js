@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {Pressable, Alert, View, Text, FlatList, StatusBar, Modal, TextInput} from 'react-native';
 import styles from './styles';
 import Comment from '../Comment/Comment'
-import { getFirestore, collection, onSnapshot, addDoc } from 'firebase/firestore';
+import { getFirestore, collection, onSnapshot, addDoc} from 'firebase/firestore';
 import fb from '../../firebaseConfig.js';
 import { getAuth} from "firebase/auth";
 
@@ -22,11 +22,13 @@ const Topic = ({ route }) => {
 
 
 
+
     // Retrieves all comments for a prompt
     const getComments = (listId) => {
         const commentsRef = collection(db, "comments/prompt"+listId+"/userComments");
-        //console.log(commentsRef);
+
         setList([]);
+
         let comments = [];
         onSnapshot(commentsRef, (snapshot) => {
             snapshot.docs.forEach((doc) => {
@@ -36,8 +38,10 @@ const Topic = ({ route }) => {
                 })
         setIsLoading(false);
         })
+
         console.log(comments);
         setList(comments) 
+
     };
 
     
@@ -60,7 +64,9 @@ const Topic = ({ route }) => {
         }
         setModalVisible(!modalVisible)
         onChangeText("")
+        //setTimeout("console.log('Please wait for a minute before the next reply');", 60000);
     };
+
 
     useEffect(() => {
         if (firstLoad) {
@@ -107,6 +113,7 @@ const Topic = ({ route }) => {
                             value={text}
                             multiline = {true}
                             numberOfLines = {10}
+                            maxLength={255}
                             />
                             <Pressable
                             style={[styles.button, styles.buttonClose]}
@@ -114,11 +121,12 @@ const Topic = ({ route }) => {
                             >
                             <Text style={styles.textStyle}>Submit</Text>
                             </Pressable>
+                            
                         </View>
                         </View>
                     </Modal>
                 </View>
-
+                
                     <FlatList
                     style={styles.commentsContainer}
                     data={listState}

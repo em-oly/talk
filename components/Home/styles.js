@@ -1,4 +1,4 @@
-import { StyleSheet} from "react-native";
+import { StyleSheet, Dimensions} from "react-native";
 
 const styles = StyleSheet.create({
     container: {
@@ -17,10 +17,12 @@ const styles = StyleSheet.create({
     },
     input: {
       height: 32,
-      width: "20%",
+
+      width: 250,
       margin: 12,
       borderWidth: 1,
-      padding: 10,
+      padding: 5,
+
       backgroundColor: "white",
       fontFamily: 'monospace'
     },
