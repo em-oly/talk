@@ -17,10 +17,12 @@ const styles = StyleSheet.create({
     },
     input: {
       height: 32,
+
       width: 250,
       margin: 12,
       borderWidth: 1,
       padding: 5,
+
       backgroundColor: "white",
       fontFamily: 'monospace'
     },

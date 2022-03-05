@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Pressable, Alert, View, Text, FlatList, StatusBar, Modal, TextInput} from 'react-native';
 import styles from './styles';
 import Comment from '../Comment/Comment'
@@ -6,65 +6,78 @@ import { getFirestore, collection, onSnapshot, addDoc} from 'firebase/firestore'
 import fb from '../../firebaseConfig.js';
 import { getAuth} from "firebase/auth";
 
+const db = getFirestore(fb);
+
 
 const Topic = ({ route }) => {
     const { prompt, hashtags, listId } = route.params;
-    const db = getFirestore(fb);
     const auth = getAuth();
     const username = auth.currentUser.displayName;
+
+    const [modalVisible, setModalVisible] = useState(false);
+    const [text, onChangeText] = useState("");
+    const [firstLoad, setIsLoading] = useState(true);
+
+    const [listState, setList] = useState([]);
+
 
 
 
     // Retrieves all comments for a prompt
     const getComments = (listId) => {
         const commentsRef = collection(db, "comments/prompt"+listId+"/userComments");
-        // console.log(commentsRef);
-    
+
+        setList([]);
+
         let comments = [];
         onSnapshot(commentsRef, (snapshot) => {
             snapshot.docs.forEach((doc) => {
-                comments.push({...doc.data()})
+                // console.log("Comment ID: ",doc.id);
+                let commentId = doc.id;
+                comments.push({...doc.data(), commentId, listId})
                 })
+        setIsLoading(false);
         })
-        // console.log(comments);
-        return comments   
+
+        console.log(comments);
+        setList(comments) 
+
     };
 
-    // Handles textinput and adds new comment to database
-    var addComment = (text, name) => {
+    
+
+    //Handles textinput and adds new comment to database
+    const addComment = (text, name) => {
         if (!text) {
             Alert.alert("You entered nothing");
         } else {
-            var updatedComments = [...listComments, {username: name, upvotes: 1, body: text}];
-            setListState(updatedComments);
-            updateList(updatedComments);
             const path = "comments/prompt"+listId+"/userComments/";
-            addDoc(collection(db, path), {
+            let newCommentId = "";
+            const newComment = addDoc(collection(db, path), {
                 username: username,
-                upvotes: 1,
+                upvotes: 0,
                 body: text
             });
+            //let updatedComments = [...listComments, {username: name, upvotes: 1, body: text, commentId: newCommentRef.id, listId: listId}];
+            setList([...listState, {username: name, upvotes: 0, body: text, commentId: newCommentId, listId: listId}]);
+            //getComments(listId);
         }
         setModalVisible(!modalVisible)
         onChangeText("")
         //setTimeout("console.log('Please wait for a minute before the next reply');", 60000);
     };
 
-    let comments = getComments(listId);
 
-    //console.log(comments);
-
-    const [modalVisible, setModalVisible] = useState(false);
-    const [text, onChangeText] = useState("");
-
-    const [listComments, updateList] = useState(comments);
-
-    const [listState, setListState] = useState(listComments)
+    useEffect(() => {
+        if (firstLoad) {
+        getComments(listId);
+        }
+    }, [])
     
-    // console.log(listState);
-
     //console.log(listComments);
-
+    if (firstLoad) {
+        return <Text>Loading comments...</Text>
+    }
     return (
             <View style={styles.container}> 
                 <Text style={styles.title}>Talk</Text>
@@ -121,6 +134,7 @@ const Topic = ({ route }) => {
                         <Comment comment={item} />
                     } 
                     keyExtractor={(item, index) => index.toString()}
+                    // extraData={listState}
                 />
                 <StatusBar style="auto" />
             </View>
