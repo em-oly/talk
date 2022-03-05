@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {Pressable, Alert, View, Text, FlatList, StatusBar, Modal, TextInput} from 'react-native';
 import styles from './styles';
 import Comment from '../Comment/Comment'
-import { getFirestore, collection, onSnapshot, addDoc } from 'firebase/firestore';
+import { getFirestore, collection, onSnapshot, addDoc} from 'firebase/firestore';
 import fb from '../../firebaseConfig.js';
 import { getAuth} from "firebase/auth";
 
@@ -14,10 +14,11 @@ const Topic = ({ route }) => {
     const username = auth.currentUser.displayName;
 
 
+
     // Retrieves all comments for a prompt
     const getComments = (listId) => {
         const commentsRef = collection(db, "comments/prompt"+listId+"/userComments");
-        console.log(commentsRef);
+        // console.log(commentsRef);
     
         let comments = [];
         onSnapshot(commentsRef, (snapshot) => {
@@ -25,7 +26,7 @@ const Topic = ({ route }) => {
                 comments.push({...doc.data()})
                 })
         })
-        console.log(comments);
+        // console.log(comments);
         return comments   
     };
 
@@ -59,7 +60,6 @@ const Topic = ({ route }) => {
     const [listComments, updateList] = useState(comments);
 
     const [listState, setListState] = useState(listComments)
-
     
     // console.log(listState);
 

@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
     commentContainer: {
         marginTop: 10,
         backgroundColor: 'white',
-        width: Dimensions.get('window').width * .8,
+        width: Dimensions.get('window').width * .9,
         borderWidth: 2,
         borderRadius: 20,
         alignSelf: 'center',
@@ -14,12 +14,6 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         alignSelf: 'center',
         flexDirection: 'column',
-    },
-
-    flagButton: {
-        width: "10%",
-        alignSelf: 'center',
-        
     },
 
     voteCount: {
@@ -54,7 +48,67 @@ const styles = StyleSheet.create({
         flexWrap: "wrap",
         flex: 1,
         fontFamily: 'monospace',
-    }
+    },
+    
+    badgeButton: {
+        width: "10%",
+        alignSelf: 'center',
+        
+    },
+    flagButton: {
+        width: "10%",
+        margin: 10,
+        alignSelf: 'center',
+        
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+      },
+      centeredView: {
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+      },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        width: Dimensions.get('window').width * .9,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+      },
+    buttonClose: {
+        backgroundColor: "#2196F3",
+      },
+    textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+      },
+
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2,
+        marginBottom: 20,
+        alignSelf: "center",
+        right: 10
+      },
+
+      badge: {
+        flex: 1
+    },
+
+    
 });
 
 export default styles; 
