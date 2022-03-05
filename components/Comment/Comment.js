@@ -22,7 +22,7 @@ const Comment = (props) => {
     const [counter, setCounter] = useState(upvotes)
     const [decremented, setDecremented] = useState(false);
     const [incremented, setIncremented] = useState(false);
-    const [shouldShow, setShouldShow] = useState(false);
+    const [shouldShow, setShouldShow] = useState(true);
     const [shouldShowbestbadge, setShouldShowbestbadge] = useState(false);
     const [shouldShowbadbadge, setShouldShowbadbadge] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
@@ -36,6 +36,11 @@ const Comment = (props) => {
         username = username + " (FUNNIEST)";
         setModalVisible(!modalVisible);
     }
+
+    // const hideComment = () => {
+
+    //     setShouldShow(!shouldShow)
+    // }
 
     const incrementVote = async () => {
         const commentPath = "comments/prompt"+listId+"/userComments";
