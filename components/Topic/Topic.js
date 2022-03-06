@@ -27,17 +27,16 @@ const Topic = ({ route }) => {
         const commentsPath = "comments/prompt"+listId+"/userComments";
 
         setList([]);
-        console.log("here");
+        
         let comments = [];
         const snapshot = await getDocs(collection(db, commentsPath));
         snapshot.forEach((doc) => {
-            console.log("Comment ID: ",doc.id);
+            // console.log("Comment ID: ",doc.id);
             let commentId = doc.id;
             comments.push({...doc.data(), commentId, listId})
         })
         setIsLoading(false);
 
-        console.log("inside getComments: ",comments);
         setList(...listState, comments) 
 
     };
@@ -45,17 +44,19 @@ const Topic = ({ route }) => {
     
 
     //Handles textinput and adds new comment to database
-    const addComment = (text, name) => {
+    const addComment = async (text, name) => {
+        let newCommentId = "";
         if (!text) {
             Alert.alert("You entered nothing");
         } else {
             const path = "comments/prompt"+listId+"/userComments/";
-            let newCommentId = "";
-            const newComment = addDoc(collection(db, path), {
+            // let newCommentId = "";
+            const newComment = await addDoc(collection(db, path), {
                 username: username,
                 upvotes: 0,
                 body: text
             });
+            newCommentId = newComment.id;
             setList([...listState, {username: name, upvotes: 0, body: text, commentId: newCommentId, listId: listId}]);
 
         }

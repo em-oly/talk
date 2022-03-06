@@ -19,7 +19,7 @@ const Home = ({navigation}, props) => {
                     <TextInput
                                 style={styles.input}
 
-                                placeholder={"Enter Your Username... (optional)"}
+                                placeholder={"Enter A Username... (optional)"}
 
                                 onChangeText={onChangeText}
                                 value={text}
