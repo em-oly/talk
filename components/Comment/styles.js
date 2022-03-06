@@ -106,12 +106,12 @@ const styles = StyleSheet.create({
       },
 
       badge: {
-        flex: 1
+        // flex: 1,
     },
 
     badgeCount: {
-      margin: 10,
-      alignSelf: "center",
+      // flex: 1,
+      // margin: 10,
 
   },
 
@@ -119,6 +119,17 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontFamily: 'monospace'
 },
+
+  badgeContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap"
+  },
+
+  badgeInnerContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    paddingRight: 10
+  }
 
     
 });
