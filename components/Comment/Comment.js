@@ -28,6 +28,8 @@ const Comment = (props) => {
     const [worstBadgeincremented, setWorstBadgeIncremented] = useState(false);
     const [shouldShow, setShouldShow] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
+    const [goodBadge, showGoodBadge] = useState(false);
+    const [badBadge, showBadBadge] = useState(false);
 
 
     if (username == displayName) {
@@ -49,6 +51,22 @@ const Comment = (props) => {
         }
     }
 
+    const checkBadges = async () => {
+        const commentPath = "comments/prompt"+listId+"/userComments";
+        const commentRef = doc(db, commentPath, commentId);
+        let commentSnap = await getDoc(commentRef);
+        let commentData = commentSnap.data();
+
+        if (commentData.bestBadges > 0) {
+            showGoodBadge(true);
+        }
+        if (commentData.worstBadges > 0) {
+            showBadBadge(true);
+        }
+              
+    }
+
+    checkBadges(); 
     checkComment();
 
     const hideComment = async () => {
@@ -115,20 +133,21 @@ const Comment = (props) => {
 
         if (!badgeSnap.exists()) {
             await setDoc(doc(db, badgesPath, commentId), {
-                upvoted: false,
+                bestBadge: false,
+                worstBadge: false
             });
         }
         badgeSnap = await getDoc(badgeRef);
         let badgeData = badgeSnap.data();
-        if(bestBadgeincremented || badgeData.upvoted == true){
+        if(bestBadgeincremented || badgeData.bestBadge == true){
 
-            return setModalVisible(!modalVisible)
+            // return setModalVisible(!modalVisible)
         } else {
                 setBestBadgeIncremented(true)
-                await updateDoc(badgeRef, {upvoted: true});
+                await updateDoc(badgeRef, {bestBadge: true});
                 await updateDoc(commentRef, {bestBadges: increment(1)});
                 setBestBadgeCounter(bestBadgeCounter + 1);
-            return setModalVisible(!modalVisible)
+                showGoodBadge(true);
         }
     }
 
@@ -141,20 +160,21 @@ const Comment = (props) => {
 
         if (!badgeSnap.exists()) {
             await setDoc(doc(db, badgesPath, commentId), {
-                upvoted: false,
+                bestBadge: false,
+                worstBadge: false
             });
         }
         badgeSnap = await getDoc(badgeRef);
         let badgeData = badgeSnap.data();
-        if(worstBadgeincremented || badgeData.upvoted == true){
+        if(worstBadgeincremented || badgeData.worstBadge == true){
 
-            return setModalVisible(!modalVisible)
+            // return setModalVisible(!modalVisible)
         } else {
                 setWorstBadgeIncremented(true)
                 await updateDoc(badgeRef, {upvoted: true});
                 await updateDoc(commentRef, {worstBadges: increment(1)});
                 setWorstBadgeCounter(worstBadgeCounter + 1);
-            return setModalVisible(!modalVisible)
+                showBadBadge(true);
         }
     }
 
@@ -221,17 +241,28 @@ const Comment = (props) => {
             <Text style={styles.commentText}>
                 <Text style={styles.userText}>{username}</Text>
                 {"\n"}
-                <View style={styles.badge}>
-                    <AntDesign name='Trophy' size={18} color="gold"/>
-                </View>
-                <View style={styles.badgeCount}> 
-                    <Text style={styles.badgeStyle}>{bestBadgeCounter}</Text>
-                </View>
-                <View style={styles.badge}>
-                    <Entypo name='medal' size={18} color="black"/>
-                </View>
-                <View style={styles.badgeCount}> 
-                    <Text style={styles.badgeStyle}>{worstBadgeCounter}</Text>
+                <View style={styles.badgeContainer}>
+                    {goodBadge ? (
+                    <View style={styles.badgeInnerContainer}>
+                        <View style={styles.badge}>
+                        <AntDesign name='Trophy' size={18} color="gold"/>
+                        </View>
+                        <View style={styles.badgeCount}> 
+                            <Text style={styles.badgeStyle}>x{bestBadgeCounter}</Text>
+                        </View>
+                    </View>
+        
+                    ): null}
+                    {badBadge ? (
+                    <View style={styles.badgeInnerContainer}>
+                        <View style={styles.badge}>
+                            <Entypo name='medal' size={18} color="black"/>
+                        </View>
+                        <View style={styles.badgeCount}> 
+                            <Text style={styles.badgeStyle}>x{worstBadgeCounter}</Text>
+                        </View>
+                    </View>
+                    ): null}
                 </View>
                 {"\n"}
                 {"\n"}
