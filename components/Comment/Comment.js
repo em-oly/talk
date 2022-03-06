@@ -14,17 +14,19 @@ const db = getFirestore(fb);
 
 const Comment = (props) => {
 
-    let {username, upvotes, body, commentId, listId} = props.comment;
+    let {username, upvotes, bestBadges, worstBadges, body, commentId, listId} = props.comment;
 
     const auth = getAuth();
     const displayName = auth.currentUser.displayName;
 
     const [counter, setCounter] = useState(upvotes)
+    const [bestBadgeCounter, setBestBadgeCounter] = useState(bestBadges)
+    const [worstBadgeCounter, setWorstBadgeCounter] = useState(worstBadges)
     const [decremented, setDecremented] = useState(false);
     const [incremented, setIncremented] = useState(false);
+    const [bestBadgeincremented, setBestBadgeIncremented] = useState(false);
+    const [worstBadgeincremented, setWorstBadgeIncremented] = useState(false);
     const [shouldShow, setShouldShow] = useState(true);
-    const [shouldShowbestbadge, setShouldShowbestbadge] = useState(false);
-    const [shouldShowbadbadge, setShouldShowbadbadge] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
 
 
@@ -104,6 +106,58 @@ const Comment = (props) => {
         }
     }
 
+    const incrementBestBadge = async () => {
+        const commentPath = "comments/prompt"+listId+"/userComments";
+        const commentRef = doc(db, commentPath, commentId);
+        const badgesPath = "users/"+auth.currentUser.uid+"/badges";
+        const badgeRef = doc(db, badgesPath, commentId);
+        let badgeSnap = await getDoc(badgeRef);
+
+        if (!badgeSnap.exists()) {
+            await setDoc(doc(db, badgesPath, commentId), {
+                upvoted: false,
+            });
+        }
+        badgeSnap = await getDoc(badgeRef);
+        let badgeData = badgeSnap.data();
+        if(bestBadgeincremented || badgeData.upvoted == true){
+
+            return setModalVisible(!modalVisible)
+        } else {
+                setBestBadgeIncremented(true)
+                await updateDoc(badgeRef, {upvoted: true});
+                await updateDoc(commentRef, {bestBadges: increment(1)});
+                setBestBadgeCounter(bestBadgeCounter + 1);
+            return setModalVisible(!modalVisible)
+        }
+    }
+
+    const incrementWorstBadge = async () => {
+        const commentPath = "comments/prompt"+listId+"/userComments";
+        const commentRef = doc(db, commentPath, commentId);
+        const badgesPath = "users/"+auth.currentUser.uid+"/badges";
+        const badgeRef = doc(db, badgesPath, commentId);
+        let badgeSnap = await getDoc(badgeRef);
+
+        if (!badgeSnap.exists()) {
+            await setDoc(doc(db, badgesPath, commentId), {
+                upvoted: false,
+            });
+        }
+        badgeSnap = await getDoc(badgeRef);
+        let badgeData = badgeSnap.data();
+        if(worstBadgeincremented || badgeData.upvoted == true){
+
+            return setModalVisible(!modalVisible)
+        } else {
+                setWorstBadgeIncremented(true)
+                await updateDoc(badgeRef, {upvoted: true});
+                await updateDoc(commentRef, {worstBadges: increment(1)});
+                setWorstBadgeCounter(worstBadgeCounter + 1);
+            return setModalVisible(!modalVisible)
+        }
+    }
+
     const decrementVote = async () => {
         const commentPath = "comments/prompt"+listId+"/userComments";
         const commentRef = doc(db, commentPath, commentId);
@@ -137,6 +191,7 @@ const Comment = (props) => {
             return
         }
     }
+
       
     return (
         <View style={styles.commentContainer}>
@@ -145,11 +200,11 @@ const Comment = (props) => {
             <View style={styles.voteButtons}>
 
                 <TouchableOpacity onPress={incrementVote}>
-                    <AntDesign name='arrowup' size={18}/>
+                    <AntDesign name='arrowup' size={25}/>
                 </TouchableOpacity>
                     
                 <TouchableOpacity onPress={decrementVote}>
-                    <AntDesign name='arrowdown' size={18}/>
+                    <AntDesign name='arrowdown' size={25}/>
                 </TouchableOpacity>
 
 
@@ -166,17 +221,18 @@ const Comment = (props) => {
             <Text style={styles.commentText}>
                 <Text style={styles.userText}>{username}</Text>
                 {"\n"}
-                {shouldShowbestbadge ? (
                 <View style={styles.badge}>
                     <AntDesign name='Trophy' size={18} color="gold"/>
                 </View>
-            ): null}
-             {shouldShowbadbadge ? (
+                <View style={styles.badgeCount}> 
+                    <Text style={styles.badgeStyle}>{bestBadgeCounter}</Text>
+                </View>
                 <View style={styles.badge}>
                     <Entypo name='medal' size={18} color="black"/>
                 </View>
-            ): null}
-           
+                <View style={styles.badgeCount}> 
+                    <Text style={styles.badgeStyle}>{worstBadgeCounter}</Text>
+                </View>
                 {"\n"}
                 {"\n"}
                 <Text style={styles.bodyText}>{body}</Text>
@@ -198,13 +254,13 @@ const Comment = (props) => {
                 <View style={styles.modalView}>
                     <Pressable
                     style={[styles.button, styles.buttonClose]}
-                    onPress={() => {setShouldShowbestbadge(!shouldShowbestbadge), setModalVisible(!modalVisible)} }
+                    onPress={incrementBestBadge}
                     >
                     <Text style={styles.textStyle}>Give this comment a trophy for being awesome!</Text>
                     </Pressable>
                     <Pressable
                     style={[styles.button, styles.buttonClose]}
-                    onPress={() => {setShouldShowbadbadge(!shouldShowbadbadge), setModalVisible(!modalVisible)} }
+                    onPress={incrementWorstBadge}
                     >
                     <Text style={styles.textStyle}>Give this comment the medal of shame!</Text>
                     </Pressable>

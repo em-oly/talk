@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     },
 
     voteStyle: {
+        fontSize: 15,
         fontWeight: "bold",
         fontFamily: 'monospace'
     },
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     commentText: {
         flexWrap: "wrap",
         flex: 1,
-        marginBottom: 5,
+        marginBottom: 10,
         marginTop: 5,
         paddingRight: 20,
     },
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     },
     
     badgeButton: {
-        width: "10%",
+        width: "5%",
         alignSelf: 'center',
         
     },
@@ -107,6 +108,17 @@ const styles = StyleSheet.create({
       badge: {
         flex: 1
     },
+
+    badgeCount: {
+      margin: 10,
+      alignSelf: "center",
+
+  },
+
+  badgeStyle: {
+    fontWeight: "bold",
+    fontFamily: 'monospace'
+},
 
     
 });

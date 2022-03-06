@@ -54,10 +54,12 @@ const Topic = ({ route }) => {
             const newComment = await addDoc(collection(db, path), {
                 username: username,
                 upvotes: 0,
+                bestBadges: 0,
+                worstBadges: 0,
                 body: text
             });
             newCommentId = newComment.id;
-            setList([...listState, {username: name, upvotes: 0, body: text, commentId: newCommentId, listId: listId}]);
+            setList([...listState, {username: name, upvotes: 0, bestBadges: 0, worstBadges: 0, body: text, commentId: newCommentId, listId: listId}]);
 
         }
         setModalVisible(!modalVisible)
