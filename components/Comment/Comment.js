@@ -126,11 +126,11 @@ const Comment = (props) => {
         const badgesPath = "users/"+auth.currentUser.uid+"/badges";
         const badgeRef = doc(db, badgesPath, commentId);
         const badgeLimitPath = "users/"+auth.currentUser.uid+"/badgeLimit";
-        const badgeLimitRef = doc(db, badgeLimitPath, listId);
+        const badgeLimitRef = doc(db, badgeLimitPath, listId.toString());
 
         let badgeLimitSnap = await getDoc(badgeLimitRef);
         if (!badgeLimitSnap.exists()) {
-            await setDoc(doc(db, badgeLimitPath, listId), {
+            await setDoc(doc(db, badgeLimitPath, listId.toString()), {
                 usedBestBadge: false,
                 usedWorstBadge: false
             });
@@ -168,11 +168,11 @@ const Comment = (props) => {
         const badgesPath = "users/"+auth.currentUser.uid+"/badges";
         const badgeRef = doc(db, badgesPath, commentId);
         const badgeLimitPath = "users/"+auth.currentUser.uid+"/badgeLimit";
-        const badgeLimitRef = doc(db, badgeLimitPath, listId);
+        const badgeLimitRef = doc(db, badgeLimitPath, listId.toString());
 
         let badgeLimitSnap = await getDoc(badgeLimitRef);
         if (!badgeLimitSnap.exists()) {
-            await setDoc(doc(db, badgeLimitPath, listId), {
+            await setDoc(doc(db, badgeLimitPath, listId.toString()), {
                 usedBestBadge: false,
                 usedWorstBadge: false
             });
