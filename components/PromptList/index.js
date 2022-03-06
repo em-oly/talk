@@ -5,6 +5,7 @@ import styles from './styles';
 import Prompt from '../Prompt';
 import { getFirestore, collection, onSnapshot } from 'firebase/firestore';
 import fb from '../../firebaseConfig.js';
+import { getAuth} from "firebase/auth";
 
 const db = getFirestore(fb);
 const promptsRef = collection(db, "prompts");
@@ -20,6 +21,7 @@ onSnapshot(promptsRef, (snapshot) => {
 const PromptList = ({navigation}) => {
 
     return (
+            
             <View style={styles.container}> 
                     <Text style={styles.title}>Talk</Text>
                 <FlatList 
