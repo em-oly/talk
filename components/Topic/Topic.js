@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import {Pressable, Alert, View, Text, FlatList, StatusBar, Modal, TextInput} from 'react-native';
+import {Pressable, Alert, View, Text, FlatList, StatusBar, Modal, TextInput } from 'react-native';
 import styles from './styles';
 import Comment from '../Comment/Comment'
-import { getFirestore, collection, onSnapshot, addDoc} from 'firebase/firestore';
+import { getFirestore, collection, onSnapshot, addDoc, getDocs} from 'firebase/firestore';
 import fb from '../../firebaseConfig.js';
 import { getAuth} from "firebase/auth";
 
@@ -18,29 +18,27 @@ const Topic = ({ route }) => {
     const [text, onChangeText] = useState("");
     const [firstLoad, setIsLoading] = useState(true);
     const [listState, setList] = useState([]);
-    // const [newPost, setNewPost] = useState(null);
 
 
 
 
     // Retrieves all comments for a prompt
-    const getComments = (listId) => {
-        const commentsRef = collection(db, "comments/prompt"+listId+"/userComments");
+    const getComments = async (listId) => {
+        const commentsPath = "comments/prompt"+listId+"/userComments";
 
         setList([]);
-
+        console.log("here");
         let comments = [];
-        onSnapshot(commentsRef, (snapshot) => {
-            snapshot.docs.forEach((doc) => {
-                // console.log("Comment ID: ",doc.id);
-                let commentId = doc.id;
-                comments.push({...doc.data(), commentId, listId})
-                })
-        setIsLoading(false);
+        const snapshot = await getDocs(collection(db, commentsPath));
+        snapshot.forEach((doc) => {
+            console.log("Comment ID: ",doc.id);
+            let commentId = doc.id;
+            comments.push({...doc.data(), commentId, listId})
         })
+        setIsLoading(false);
 
-        console.log(comments);
-        setList(comments) 
+        console.log("inside getComments: ",comments);
+        setList(...listState, comments) 
 
     };
 
@@ -58,10 +56,8 @@ const Topic = ({ route }) => {
                 upvotes: 0,
                 body: text
             });
-            //let updatedComments = [...listComments, {username: name, upvotes: 1, body: text, commentId: newCommentRef.id, listId: listId}];
             setList([...listState, {username: name, upvotes: 0, body: text, commentId: newCommentId, listId: listId}]);
-            // setNewPost({username: name, upvotes: 0, body: text, commentId: newCommentId, listId: listId})
-            //getComments(listId);
+
         }
         setModalVisible(!modalVisible)
         onChangeText("")
@@ -73,7 +69,6 @@ const Topic = ({ route }) => {
         getComments(listId);
     }, [])
     
-    //console.log(listComments);
     if (firstLoad) {
         return <Text>Loading comments...</Text>
     }
@@ -125,13 +120,13 @@ const Topic = ({ route }) => {
                         </View>
                     </Modal>
                 </View>
-                
                     <FlatList
+                    
                     style={styles.commentsContainer}
                     data={listState}
-                    renderItem={({item}) => 
+                    renderItem={({item}) =>
                         <Comment comment={item} />
-                    } 
+                    }
                     keyExtractor={(item, index) => index.toString()}
 
                 />

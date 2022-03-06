@@ -100,6 +100,7 @@ const Comment = (props) => {
                 await updateDoc(commentRef, {upvotes: increment(1)});
                 setCounter(counter + 1);
             }
+            return
         }
     }
 
@@ -133,6 +134,7 @@ const Comment = (props) => {
                 await updateDoc(commentRef, {upvotes: increment(-1)});
                 setCounter(counter - 1);
             }
+            return
         }
     }
       
