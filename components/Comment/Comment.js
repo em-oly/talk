@@ -36,10 +36,6 @@ const Comment = (props) => {
         username = username + " (you)";
     }
   
-    const givebadge = () => {
-        username = username + " (FUNNIEST)";
-        setModalVisible(!modalVisible);
-    }
     const checkComment = async () => {
         const checkHiddenComment = doc(db, "users/"+auth.currentUser.uid+"/hidden", commentId);
         let hiddenSnap = await getDoc(checkHiddenComment);
@@ -129,27 +125,43 @@ const Comment = (props) => {
         const commentRef = doc(db, commentPath, commentId);
         const badgesPath = "users/"+auth.currentUser.uid+"/badges";
         const badgeRef = doc(db, badgesPath, commentId);
-        let badgeSnap = await getDoc(badgeRef);
+        const badgeLimitPath = "users/"+auth.currentUser.uid+"/badgeLimit";
+        const badgeLimitRef = doc(db, badgeLimitPath, listId);
 
+        let badgeLimitSnap = await getDoc(badgeLimitRef);
+        if (!badgeLimitSnap.exists()) {
+            await setDoc(doc(db, badgeLimitPath, listId), {
+                usedBestBadge: false,
+                usedWorstBadge: false
+            });
+        }
+
+        let badgeSnap = await getDoc(badgeRef);
         if (!badgeSnap.exists()) {
             await setDoc(doc(db, badgesPath, commentId), {
                 bestBadge: false,
                 worstBadge: false
             });
         }
+
+        badgeLimitSnap = await getDoc(badgeLimitRef);
+        let badgeLimitData = badgeLimitSnap.data();
         badgeSnap = await getDoc(badgeRef);
         let badgeData = badgeSnap.data();
-        if(bestBadgeincremented || badgeData.bestBadge == true){
+        if(bestBadgeincremented || badgeData.bestBadge == true || badgeLimitData.usedBestBadge == true){
 
             return setModalVisible(!modalVisible)
         } else {
                 setBestBadgeIncremented(true)
                 await updateDoc(badgeRef, {bestBadge: true});
                 await updateDoc(commentRef, {bestBadges: increment(1)});
+                await updateDoc(badgeLimitRef, {usedBestBadge: true})
                 setBestBadgeCounter(bestBadgeCounter + 1);
                 showGoodBadge(true);
         }
-            return setModalVisible(!modalVisible)
+
+        return setModalVisible(!modalVisible)
+
     }
 
     const incrementWorstBadge = async () => {
@@ -157,23 +169,37 @@ const Comment = (props) => {
         const commentRef = doc(db, commentPath, commentId);
         const badgesPath = "users/"+auth.currentUser.uid+"/badges";
         const badgeRef = doc(db, badgesPath, commentId);
-        let badgeSnap = await getDoc(badgeRef);
+        const badgeLimitPath = "users/"+auth.currentUser.uid+"/badgeLimit";
+        const badgeLimitRef = doc(db, badgeLimitPath, listId);
 
+        let badgeLimitSnap = await getDoc(badgeLimitRef);
+        if (!badgeLimitSnap.exists()) {
+            await setDoc(doc(db, badgeLimitPath, listId), {
+                usedBestBadge: false,
+                usedWorstBadge: false
+            });
+        }
+
+        let badgeSnap = await getDoc(badgeRef);
         if (!badgeSnap.exists()) {
             await setDoc(doc(db, badgesPath, commentId), {
                 bestBadge: false,
                 worstBadge: false
             });
         }
+
+        badgeLimitSnap = await getDoc(badgeLimitRef);
+        let badgeLimitData = badgeLimitSnap.data();
         badgeSnap = await getDoc(badgeRef);
         let badgeData = badgeSnap.data();
-        if(worstBadgeincremented || badgeData.worstBadge == true){
+        if(worstBadgeincremented || badgeData.worstBadge == true || badgeLimitData.usedWorstBadge){
 
             return setModalVisible(!modalVisible)
         } else {
                 setWorstBadgeIncremented(true)
                 await updateDoc(badgeRef, {upvoted: true});
                 await updateDoc(commentRef, {worstBadges: increment(1)});
+                await updateDoc(badgeLimitRef, {usedWorstBadge: true})
                 setWorstBadgeCounter(worstBadgeCounter + 1);
                 showBadBadge(true);
         }
