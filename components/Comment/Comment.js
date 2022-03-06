@@ -159,7 +159,9 @@ const Comment = (props) => {
                 setBestBadgeCounter(bestBadgeCounter + 1);
                 showGoodBadge(true);
         }
+
         return setModalVisible(!modalVisible)
+
     }
 
     const incrementWorstBadge = async () => {

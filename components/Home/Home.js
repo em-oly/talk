@@ -30,26 +30,14 @@ const Home = ({navigation}, props) => {
                             {if (text == '') {
                                 navigation.navigate("Prompts")
                             } else {
-                                onAuthStateChanged(auth, (user) => {
-                                if (user) {
-                                    updateProfile(auth.currentUser, {
+                                
+                                updateProfile(auth.currentUser, {
                                     displayName: text
-                                }).then(() => {
-                                // Profile updated!
-                                // ...
-                                setDoc(doc(db, "users", user.uid), {
-                                    username: user.displayName,
-                                });
-                                }).catch((error) => {
-                                // An error occurred
-                                // ...
                                 })
-                                const user = auth.currentUser;
-                                console.log(user)
-                                } else {
-                                    // ...
+                                setDoc(doc(db, "users", auth.currentUser.uid), {
+                                    username: text
                                 }
-                            })
+                            )
                             }
                             navigation.navigate("Prompts")
                         }}
