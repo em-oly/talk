@@ -36,10 +36,6 @@ const Comment = (props) => {
         username = username + " (you)";
     }
   
-    const givebadge = () => {
-        username = username + " (FUNNIEST)";
-        setModalVisible(!modalVisible);
-    }
     const checkComment = async () => {
         const checkHiddenComment = doc(db, "users/"+auth.currentUser.uid+"/hidden", commentId);
         let hiddenSnap = await getDoc(checkHiddenComment);
@@ -154,7 +150,7 @@ const Comment = (props) => {
         let badgeData = badgeSnap.data();
         if(bestBadgeincremented || badgeData.bestBadge == true || badgeLimitData.usedBestBadge == true){
 
-            // return setModalVisible(!modalVisible)
+            return setModalVisible(!modalVisible)
         } else {
                 setBestBadgeIncremented(true)
                 await updateDoc(badgeRef, {bestBadge: true});
@@ -163,6 +159,7 @@ const Comment = (props) => {
                 setBestBadgeCounter(bestBadgeCounter + 1);
                 showGoodBadge(true);
         }
+        return setModalVisible(!modalVisible)
     }
 
     const incrementWorstBadge = async () => {
@@ -195,7 +192,7 @@ const Comment = (props) => {
         let badgeData = badgeSnap.data();
         if(worstBadgeincremented || badgeData.worstBadge == true || badgeLimitData.usedWorstBadge){
 
-            // return setModalVisible(!modalVisible)
+            return setModalVisible(!modalVisible)
         } else {
                 setWorstBadgeIncremented(true)
                 await updateDoc(badgeRef, {upvoted: true});
@@ -204,6 +201,7 @@ const Comment = (props) => {
                 setWorstBadgeCounter(worstBadgeCounter + 1);
                 showBadBadge(true);
         }
+        return setModalVisible(!modalVisible)
     }
 
     const decrementVote = async () => {
