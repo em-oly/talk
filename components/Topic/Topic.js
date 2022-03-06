@@ -77,6 +77,7 @@ const Topic = ({ route }) => {
     }
     return (
             <View style={styles.container}> 
+                <Text style={styles.usernameStyle}>Username: {username}</Text>
                 <Text style={styles.title}>Talk</Text>
                 <View style={styles.promptContainer}>
                     <Text style={styles.text}>{prompt}

@@ -36,10 +36,6 @@ const Comment = (props) => {
         username = username + " (you)";
     }
   
-    const givebadge = () => {
-        username = username + " (FUNNIEST)";
-        setModalVisible(!modalVisible);
-    }
     const checkComment = async () => {
         const checkHiddenComment = doc(db, "users/"+auth.currentUser.uid+"/hidden", commentId);
         let hiddenSnap = await getDoc(checkHiddenComment);
