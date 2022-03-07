@@ -29,7 +29,7 @@ const Home = ({navigation}, props) => {
                         <Button 
                             onPress={()=> 
                             {if (text == '') {
-                                onChangeText('Welcome ' + auth.currentUser.displayName + '!')
+                                onChangeText('Welcome! Get Started Below.')
                             } else {
                                 updateProfile(auth.currentUser, {
                                     displayName: text
@@ -39,7 +39,7 @@ const Home = ({navigation}, props) => {
                                 }
                             )
                             } 
-                            onChangeText('Welcome ' + auth.currentUser.displayName + '!')
+                            onChangeText('Welcome! Get Started Below.')
 
                         }}
                             title='Enter'></Button>

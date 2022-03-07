@@ -324,7 +324,7 @@ const Comment = (props) => {
                     <Text style={styles.bodyText}>{body}</Text>
                 </Text>
              </View>
-         
+
             ): null}
             
     
