@@ -15,11 +15,23 @@ const styles = StyleSheet.create({
         fontSize: 60,
         fontWeight: '500'
     },
-    input: {
-      height: 32,
 
-      width: 250,
-      margin: 12,
+    inputStyles: {
+
+
+    },
+
+    userbutton: {
+    },
+
+
+ 
+  
+    input: {
+      height: 35,
+      width: 260,
+      marginRight: 10,
+      marginBottom: 20,
       borderWidth: 1,
       padding: 5,
 

@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 20,
         alignSelf: 'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     voteButtons: {
         marginLeft: 10,
@@ -39,17 +39,14 @@ const styles = StyleSheet.create({
     userText: { 
         fontSize: 15,
         fontWeight: 'bold',
-        flexWrap: "wrap",
-        flex: 1,
         fontFamily: 'monospace',
         
     },
 
     bodyText: {
-        flexWrap: "wrap",
-        flex: 1,
         fontFamily: 'monospace',
     },
+
     
     badgeButton: {
         width: "5%",

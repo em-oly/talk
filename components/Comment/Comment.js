@@ -266,36 +266,38 @@ const Comment = (props) => {
              ): null}
 
             {shouldShow ? (
-            <Text style={styles.commentText}>
-                <Text style={styles.userText}>{username}</Text>
-                {"\n"}
-                <View style={styles.badgeContainer}>
-                    {goodBadge ? (
-                    <View style={styles.badgeInnerContainer}>
-                        <View style={styles.badge}>
-                        <AntDesign name='Trophy' size={18} color="gold"/>
+            <View style={{flex: 1}}>
+                <Text style={styles.commentText}>
+                    <Text style={styles.userText}>{username}</Text>
+                    {"\n"}
+                    <View style={styles.badgeContainer}>
+                        {goodBadge ? (
+                        <View style={styles.badgeInnerContainer}>
+                            <View style={styles.badge}>
+                            <AntDesign name='Trophy' size={18} color="gold"/>
+                            </View>
+                            <View style={styles.badgeCount}> 
+                                <Text style={styles.badgeStyle}>x{bestBadgeCounter}</Text>
+                            </View>
                         </View>
-                        <View style={styles.badgeCount}> 
-                            <Text style={styles.badgeStyle}>x{bestBadgeCounter}</Text>
+            
+                        ): null}
+                        {badBadge ? (
+                        <View style={styles.badgeInnerContainer}>
+                            <View style={styles.badge}>
+                                <Entypo name='medal' size={18} color="black"/>
+                            </View>
+                            <View style={styles.badgeCount}> 
+                                <Text style={styles.badgeStyle}>x{worstBadgeCounter}</Text>
+                            </View>
                         </View>
+                        ): null}
                     </View>
-        
-                    ): null}
-                    {badBadge ? (
-                    <View style={styles.badgeInnerContainer}>
-                        <View style={styles.badge}>
-                            <Entypo name='medal' size={18} color="black"/>
-                        </View>
-                        <View style={styles.badgeCount}> 
-                            <Text style={styles.badgeStyle}>x{worstBadgeCounter}</Text>
-                        </View>
-                    </View>
-                    ): null}
-                </View>
-                {"\n"}
-                {"\n"}
-                <Text style={styles.bodyText}>{body}</Text>
-            </Text>
+                    {"\n"}
+                    {"\n"}
+                    <Text style={styles.bodyText}>{body}</Text>
+                </Text>
+            </View>
             ): null}
             
     
