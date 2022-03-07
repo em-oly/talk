@@ -276,17 +276,18 @@ const Comment = (props) => {
              ): null}
 
             {shouldShow ? (
-            <Text style={styles.commentText}>
-                <Text style={styles.userText}>{username}</Text>
-                {"\n"}
-                <View style={styles.badgeContainer}>
-                    {fireBadge ? (
-                    <View style={styles.badgeInnerContainer}>
-                        <View style={styles.badge}>
-                        <MaterialIcons name='local-fire-department' size={18} color="orange"/>
+            <View style={{flex: 1}}>
+                <Text style={styles.commentText}>
+                    <Text style={styles.userText}>{username}</Text>
+                    {"\n"}
+                    <View style={styles.badgeContainer}>
+                        {fireBadge ? (
+                        <View style={styles.badgeInnerContainer}>
+                            <View style={styles.badge}>
+                            <MaterialIcons name='local-fire-department' size={18} color="orange"/>
+                            </View>
                         </View>
-                    </View>
-        
+            
                     ): null}
                     {downTrendBadge ? (
                     <View style={styles.badgeInnerContainer}>
@@ -322,6 +323,7 @@ const Comment = (props) => {
                     {"\n"}
                     <Text style={styles.bodyText}>{body}</Text>
                 </Text>
+             </View>
          
             ): null}
             
