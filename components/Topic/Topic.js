@@ -41,7 +41,14 @@ const Topic = ({ route }) => {
 
     };
 
-    
+    //delays comment function
+    function delayer(ms){
+        return new Promise((resolve, reject)=>{
+          setTimeout(()=>{
+            resolve();
+          }, ms)
+        })
+      };
 
     //Handles textinput and adds new comment to database
     const addComment = async (text, name) => {
@@ -60,16 +67,16 @@ const Topic = ({ route }) => {
                 consecUpvotes: 0,
                 consecDownvotes: 0
             });
+            await delayer(10000); // delay comment by 10 seconds
             newCommentId = newComment.id;
             setList([...listState, {username: name, upvotes: 0, bestBadges: 0, worstBadges: 0, body: text, commentId: newCommentId, listId: listId, consecUpvotes: 0, consecDownvotes: 0}]);
-
         }
         setModalVisible(!modalVisible)
         onChangeText("")
-        //setTimeout("console.log('Please wait for a minute before the next reply');", 60000);
+        //setTimeout(()=> { addComment(); }, 100000);
+        //console.log("waiting 15 seconds");
     };
-    
-
+    //setTimeout(()=> { addComment(); }, 20000);
     useEffect(() => {
         getComments(listId);
     }, [])
