@@ -16,46 +16,38 @@ const Home = ({navigation}, props) => {
     return (
         <View style={styles.container}>
                 <Text style={styles.title}>Let's Talk!</Text>
-                    <TextInput
-                                style={styles.input}
+                <View style={{flexDirection:"row"}}>
+                        <TextInput
+                                    style={styles.input}
 
-                                placeholder={"Enter A Username... (optional)"}
+                                    placeholder={"Enter A Username... (optional)"}
 
-                                onChangeText={onChangeText}
-                                value={text}
-                                />
+                                    onChangeText={onChangeText}
+                                    value={text}
+                                    />
                     <View style={styles.userbutton}>
                         <Button 
                             onPress={()=> 
                             {if (text == '') {
-                                navigation.navigate("Prompts")
+                                onChangeText('Welcome ' + auth.currentUser.displayName + '!')
                             } else {
-                                onAuthStateChanged(auth, (user) => {
-                                if (user) {
-                                    updateProfile(auth.currentUser, {
+                                updateProfile(auth.currentUser, {
                                     displayName: text
-                                }).then(() => {
-                                // Profile updated!
-                                // ...
-                                setDoc(doc(db, "users", user.uid), {
-                                    username: user.displayName,
-                                });
-                                }).catch((error) => {
-                                // An error occurred
-                                // ...
                                 })
-                                const user = auth.currentUser;
-                                console.log(user)
-                                } else {
-                                    // ...
+                                setDoc(doc(db, "users", auth.currentUser.uid), {
+                                    username: text
                                 }
-                            })
-                            }
-                            navigation.navigate("Prompts")
+                            )
+                            } 
+                            onChangeText('Welcome ' + auth.currentUser.displayName + '!')
                         }}
-                            title='Get Started'></Button>
-                        </View>
-            <StatusBar style="auto" />
+                            title='Enter'></Button>
+                    </View>
+                </View>
+                <View style={styles.userbutton}>
+                    <Button onPress={()=> navigation.navigate("Prompts")} title='Start Talking!'></Button>
+                </View>
+        <StatusBar style="auto" />
         </View>
     );
 }
