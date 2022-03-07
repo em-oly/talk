@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     right: 10
   },
   buttonOpen: {
-    backgroundColor: "#6495ed",
+    backgroundColor: "#2196F3",
   },
   buttonClose: {
     backgroundColor: "#2196F3",

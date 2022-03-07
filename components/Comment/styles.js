@@ -66,14 +66,15 @@ const styles = StyleSheet.create({
       centeredView: {
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 100
+        marginTop: 22
       },
     modalView: {
         margin: 20,
+        marginTop: 200,
         backgroundColor: "white",
         borderRadius: 20,
         padding: 35,
-        width: Dimensions.get('window').width * .9,
+        width: Dimensions.get('window').width * .8,
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
