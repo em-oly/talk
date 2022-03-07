@@ -57,7 +57,6 @@ const Topic = ({ route }) => {
             Alert.alert("You entered nothing");
         } else {
             const path = "comments/prompt"+listId+"/userComments/";
-            // let newCommentId = "";
             const newComment = await addDoc(collection(db, path), {
                 username: username,
                 upvotes: 0,
@@ -67,16 +66,14 @@ const Topic = ({ route }) => {
                 consecUpvotes: 0,
                 consecDownvotes: 0
             });
+            setModalVisible(!modalVisible)
             await delayer(10000); // delay comment by 10 seconds
             newCommentId = newComment.id;
             setList([...listState, {username: name, upvotes: 0, bestBadges: 0, worstBadges: 0, body: text, commentId: newCommentId, listId: listId, consecUpvotes: 0, consecDownvotes: 0}]);
         }
-        setModalVisible(!modalVisible)
         onChangeText("")
-        //setTimeout(()=> { addComment(); }, 100000);
-        //console.log("waiting 15 seconds");
     };
-    //setTimeout(()=> { addComment(); }, 20000);
+
     useEffect(() => {
         getComments(listId);
     }, [])
