@@ -24,6 +24,7 @@ const PromptList = ({navigation}) => {
     console.log(username)
 
     return (
+            
             <View style={styles.container}> 
                     <Text style={styles.usernameStyle}>Username: {username}</Text>
                     <Text style={styles.title}>Talk</Text>

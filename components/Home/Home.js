@@ -40,6 +40,7 @@ const Home = ({navigation}, props) => {
                             )
                             } 
                             onChangeText('Welcome ' + auth.currentUser.displayName + '!')
+
                         }}
                             title='Enter'></Button>
                     </View>
