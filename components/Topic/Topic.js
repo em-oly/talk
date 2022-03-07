@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {Pressable, Alert, View, Text, FlatList, StatusBar, Modal, TextInput } from 'react-native';
 import styles from './styles';
 import Comment from '../Comment/Comment'
-import { getFirestore, collection, onSnapshot, addDoc, getDocs} from 'firebase/firestore';
+import { getFirestore, collection, addDoc, getDocs} from 'firebase/firestore';
 import fb from '../../firebaseConfig.js';
 import { getAuth} from "firebase/auth";
 
