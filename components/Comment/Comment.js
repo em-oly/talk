@@ -5,8 +5,7 @@ import styles from './styles';
 
 import fb from '../../firebaseConfig.js';
 import { getFirestore, doc, getDoc, updateDoc, setDoc, increment } from 'firebase/firestore';
-import { AntDesign } from '@expo/vector-icons';
-import { Entypo } from '@expo/vector-icons';
+import { AntDesign, MaterialIcons, Entypo, Ionicons } from '@expo/vector-icons';
 
 const db = getFirestore(fb);
 
@@ -30,6 +29,8 @@ const Comment = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [goodBadge, showGoodBadge] = useState(false);
     const [badBadge, showBadBadge] = useState(false);
+    const [fireBadge, showFireBadge] = useState(false);
+    const [downTrendBadge, showDownTrendBadge] = useState(false);
 
 
     if (username == displayName) {
@@ -59,7 +60,12 @@ const Comment = (props) => {
         if (commentData.worstBadges > 0) {
             showBadBadge(true);
         }
-              
+        if (commentData.consecUpvotes >= 5) {
+            showFireBadge(true);
+        }
+        if (commentData.consecDownvotes >= 5) {
+            showDownTrendBadge(true);
+        }    
     }
 
     checkBadges(); 
@@ -108,13 +114,15 @@ const Comment = (props) => {
             if (decremented || voteData.downvoted == true){
                 setDecremented(false);
                 await updateDoc(voteRef, {downvoted: false});
-                await updateDoc(commentRef, {upvotes: increment(1)});
+                await updateDoc(commentRef, {upvotes: increment(1), consecUpvotes: increment(1), consecDownvotes: 0});
                 setCounter(counter + 1);
+                checkBadges();
             } else {
                 setIncremented(true)
                 await updateDoc(voteRef, {upvoted: true});
-                await updateDoc(commentRef, {upvotes: increment(1)});
+                await updateDoc(commentRef, {upvotes: increment(1), consecUpvotes: increment(1), consecDownvotes: 0});
                 setCounter(counter + 1);
+                checkBadges();
             }
             return
         }
@@ -226,13 +234,15 @@ const Comment = (props) => {
             if (incremented || voteData.upvoted == true){
                 setIncremented(false);
                 await updateDoc(voteRef, {upvoted: false});
-                await updateDoc(commentRef, {upvotes: increment(-1)});
+                await updateDoc(commentRef, {upvotes: increment(-1), consecDownvotes: increment(1), consecUpvotes: 0});
                 setCounter(counter - 1);
+                checkBadges();
             } else {
                 setDecremented(true)
                 await updateDoc(voteRef, {downvoted: true});
-                await updateDoc(commentRef, {upvotes: increment(-1)});
+                await updateDoc(commentRef, {upvotes: increment(-1), consecDownvotes: increment(1), consecUpvotes: 0});
                 setCounter(counter - 1);
+                checkBadges();
             }
             return
         }
@@ -268,6 +278,22 @@ const Comment = (props) => {
                 <Text style={styles.userText}>{username}</Text>
                 {"\n"}
                 <View style={styles.badgeContainer}>
+                    {fireBadge ? (
+                    <View style={styles.badgeInnerContainer}>
+                        <View style={styles.badge}>
+                        <MaterialIcons name='local-fire-department' size={18} color="orange"/>
+                        </View>
+                    </View>
+        
+                    ): null}
+                    {downTrendBadge ? (
+                    <View style={styles.badgeInnerContainer}>
+                        <View style={styles.badge}>
+                        <Ionicons name='trending-down' size={18} color="red"/>
+                        </View>
+                    </View>
+        
+                    ): null}
                     {goodBadge ? (
                     <View style={styles.badgeInnerContainer}>
                         <View style={styles.badge}>
