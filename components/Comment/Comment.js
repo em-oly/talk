@@ -307,17 +307,17 @@ const Comment = (props) => {
                         </View>
                     </View>
             
-                        ): null}
-                        {badBadge ? (
-                        <View style={styles.badgeInnerContainer}>
-                            <View style={styles.badge}>
-                                <Entypo name='medal' size={18} color="black"/>
-                            </View>
-                            <View style={styles.badgeCount}> 
-                                <Text style={styles.badgeStyle}>x{worstBadgeCounter}</Text>
-                            </View>
+                    ): null}
+                    {badBadge ? (
+                    <View style={styles.badgeInnerContainer}>
+                        <View style={styles.badge}>
+                            <Entypo name='medal' size={18} color="black"/>
                         </View>
-                        ): null}
+                        <View style={styles.badgeCount}> 
+                            <Text style={styles.badgeStyle}>x{worstBadgeCounter}</Text>
+                        </View>
+                    </View>
+                    ): null}
                     </View>
                     {"\n"}
                     {"\n"}

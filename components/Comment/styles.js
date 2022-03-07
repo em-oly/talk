@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
       centeredView: {
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 22
+        marginTop: 100
       },
     modalView: {
         margin: 20,
