@@ -1,7 +1,6 @@
 import React from 'react';
-import {View, Text, FlatList, StatusBar, Touchable, Pressable} from 'react-native';
+import {View, Text, FlatList, StatusBar, Pressable} from 'react-native';
 import styles from './styles';
-//import prompts from './prompts';
 import Prompt from '../Prompt';
 import { getFirestore, collection, onSnapshot } from 'firebase/firestore';
 import fb from '../../firebaseConfig.js';

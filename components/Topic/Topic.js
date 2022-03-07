@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {Pressable, Alert, View, Text, FlatList, StatusBar, Modal, TextInput } from 'react-native';
 import styles from './styles';
 import Comment from '../Comment/Comment'
-import { getFirestore, collection, addDoc, getDocs} from 'firebase/firestore';
+import { getFirestore, collection, addDoc, getDocs, getDoc, setDoc} from 'firebase/firestore';
 import fb from '../../firebaseConfig.js';
 import { getAuth} from "firebase/auth";
 
@@ -10,10 +10,15 @@ const db = getFirestore(fb);
 
 
 const Topic = ({ route }) => {
+    
+    // Params passed from Promptlist
     const { prompt, hashtags, listId } = route.params;
+
+    // Retrieve's username of current user
     const auth = getAuth();
     const username = auth.currentUser.displayName;
 
+    // React hooks
     const [modalVisible, setModalVisible] = useState(false);
     const [text, onChangeText] = useState("");
     const [firstLoad, setIsLoading] = useState(true);
@@ -22,6 +27,7 @@ const Topic = ({ route }) => {
     const [replyColor, setReplyColor] = useState("#2196F3");
 
 
+    // Disables reply button for 5 seconds after user submit's a comment
     const disableReply = async (text, username) => {
         addComment(text, username);
         setReplyColor("#808080");
@@ -29,6 +35,7 @@ const Topic = ({ route }) => {
         setTimeout(() => {setDisabled(false); setReplyColor("#2196F3");}, 5000);
         setModalVisible(!modalVisible);
     };
+
 
     // Retrieves all comments for a prompt
     const getComments = async (listId) => {
@@ -39,12 +46,22 @@ const Topic = ({ route }) => {
         let comments = [];
         const snapshot = await getDocs(collection(db, commentsPath));
         snapshot.forEach((doc) => {
-            // console.log("Comment ID: ",doc.id);
             let commentId = doc.id;
             comments.push({...doc.data(), commentId, listId})
         })
-        setIsLoading(false);
+        if (comments == []) {
+            const badgeLimitPath = "users/"+auth.currentUser.uid+"/badgeLimit";
+            const badgeLimitRef = doc(db, badgeLimitPath, listId.toString());
+            let badgeLimitSnap = await getDoc(badgeLimitRef);
+            if (badgeLimitSnap.exists()) {
+                await setDoc(doc(db, badgeLimitPath, listId.toString()), {
+                    usedBestBadge: false,
+                    usedWorstBadge: false
+                });
+            }
+        }
 
+        setIsLoading(false);
         setList(...listState, comments) 
 
     };
@@ -68,7 +85,8 @@ const Topic = ({ route }) => {
             });
             setModalVisible(!modalVisible)
             newCommentId = newComment.id;
-            setList([...listState, {username: name, upvotes: 0, bestBadges: 0, worstBadges: 0, body: text, commentId: newCommentId, listId: listId, consecUpvotes: 0, consecDownvotes: 0}]);
+            setList([...listState, {username: name, upvotes: 0, bestBadges: 0, 
+            worstBadges: 0, body: text, commentId: newCommentId, listId: listId, consecUpvotes: 0, consecDownvotes: 0}]);
         }
         onChangeText("")
     };
@@ -146,11 +164,9 @@ const Topic = ({ route }) => {
                         <Comment comment={item} />
                     }
                     keyExtractor={(item, index) => index.toString()}
-
                 />
                 <StatusBar style="auto" />
             </View>
     );
 };
-
 export default Topic;

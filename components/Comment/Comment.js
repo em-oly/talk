@@ -2,22 +2,24 @@ import React, { useState } from 'react';
 import {View, Text, TouchableOpacity, Modal, Pressable} from 'react-native';
 import { getAuth } from "firebase/auth";
 import styles from './styles';
-
 import fb from '../../firebaseConfig.js';
 import { getFirestore, doc, getDoc, updateDoc, setDoc, increment } from 'firebase/firestore';
 import { AntDesign, MaterialIcons, Entypo, Ionicons } from '@expo/vector-icons';
 
-const db = getFirestore(fb);
 
+const db = getFirestore(fb);
 
 
 const Comment = (props) => {
 
+    // props passed from Topic
     let {username, upvotes, bestBadges, worstBadges, body, commentId, listId} = props.comment;
 
+    // Retrieve's username of current user
     const auth = getAuth();
     const displayName = auth.currentUser.displayName;
 
+    // React Hooks
     const [counter, setCounter] = useState(upvotes)
     const [bestBadgeCounter, setBestBadgeCounter] = useState(bestBadges)
     const [worstBadgeCounter, setWorstBadgeCounter] = useState(worstBadges)
@@ -32,11 +34,12 @@ const Comment = (props) => {
     const [fireBadge, showFireBadge] = useState(false);
     const [downTrendBadge, showDownTrendBadge] = useState(false);
 
-
+    // Adds (you) identifier string to current user's comments 
     if (username == displayName) {
         username = username + " (you)";
     }
   
+    // Checks for comments toggled as hidden by current user
     const checkComment = async () => {
         const checkHiddenComment = doc(db, "users/"+auth.currentUser.uid+"/hidden", commentId);
         let hiddenSnap = await getDoc(checkHiddenComment);
@@ -48,6 +51,7 @@ const Comment = (props) => {
         }
     }
 
+    // Checks comment data for badges and displays them as appropiate
     const checkBadges = async () => {
         const commentPath = "comments/prompt"+listId+"/userComments";
         const commentRef = doc(db, commentPath, commentId);
@@ -68,9 +72,12 @@ const Comment = (props) => {
         }    
     }
 
+    // called everytime a comment is rendered
     checkBadges(); 
     checkComment();
 
+
+    // User action: toggles a comment to be hidden
     const hideComment = async () => {
         const checkHiddenComment = doc(db, "users/"+auth.currentUser.uid+"/hidden", commentId);
         let hiddenSnap = await getDoc(checkHiddenComment);
@@ -92,6 +99,8 @@ const Comment = (props) => {
         }
     }
 
+
+    // User action: increments comment's vote count
     const incrementVote = async () => {
         const commentPath = "comments/prompt"+listId+"/userComments";
         const commentRef = doc(db, commentPath, commentId);
@@ -128,6 +137,7 @@ const Comment = (props) => {
         }
     }
 
+    // User action: adds "Best Badge" to comment (limited to 1 badge per prompt)
     const incrementBestBadge = async () => {
         const commentPath = "comments/prompt"+listId+"/userComments";
         const commentRef = doc(db, commentPath, commentId);
@@ -172,6 +182,8 @@ const Comment = (props) => {
 
     }
 
+
+    // User action: adds "Worst Badge" to comment (limited to 1 badge per prompt)
     const incrementWorstBadge = async () => {
         const commentPath = "comments/prompt"+listId+"/userComments";
         const commentRef = doc(db, commentPath, commentId);
@@ -214,6 +226,7 @@ const Comment = (props) => {
         return setModalVisible(!modalVisible)
     }
 
+    // User action: decrements comment's vote count
     const decrementVote = async () => {
         const commentPath = "comments/prompt"+listId+"/userComments";
         const commentRef = doc(db, commentPath, commentId);
@@ -264,15 +277,16 @@ const Comment = (props) => {
                 <TouchableOpacity onPress={decrementVote}>
                     <AntDesign name='arrowdown' size={25}/>
                 </TouchableOpacity>
-
-
+                
             </View>
+
                ): null}
 
             {shouldShow ? (
             <View style={styles.voteCount}> 
                 <Text style={styles.voteStyle}>{counter}</Text>
             </View>
+
              ): null}
 
             {shouldShow ? (
@@ -327,8 +341,6 @@ const Comment = (props) => {
 
             ): null}
             
-    
-
             <View style={styles.centeredView}>
                 <Modal
                     animationType="slide"
@@ -375,13 +387,9 @@ const Comment = (props) => {
             <View style={styles.flagButton}>
                 <TouchableOpacity onPress={() => hideComment()}>
                     <Entypo name='eye-with-line' size={18}/>
-                </TouchableOpacity>
-                    
+                </TouchableOpacity>   
 
-            </View>
-
-            
-            
+            </View>         
         </View>
     );
 };
