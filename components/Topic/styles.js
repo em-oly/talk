@@ -24,6 +24,13 @@ const styles = StyleSheet.create({
         },
     },
 
+    usernameStyle: {
+      alignSelf: 'flex-end',
+      padding: 10,
+      fontFamily: 'monospace',
+      fontSize: 20,
+  },
+
     title: {
         marginTop: '3%',
         width: '100%',

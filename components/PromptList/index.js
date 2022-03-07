@@ -19,10 +19,14 @@ onSnapshot(promptsRef, (snapshot) => {
     })
 
 const PromptList = ({navigation}) => {
+    const auth = getAuth();
+    const username = auth.currentUser.displayName
+    console.log(username)
 
     return (
             
             <View style={styles.container}> 
+                    <Text style={styles.usernameStyle}>Username: {username}</Text>
                     <Text style={styles.title}>Talk</Text>
                 <FlatList 
                 data={prompts}
