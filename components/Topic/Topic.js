@@ -56,10 +56,12 @@ const Topic = ({ route }) => {
                 upvotes: 0,
                 bestBadges: 0,
                 worstBadges: 0,
-                body: text
+                body: text,
+                consecUpvotes: 0,
+                consecDownvotes: 0
             });
             newCommentId = newComment.id;
-            setList([...listState, {username: name, upvotes: 0, bestBadges: 0, worstBadges: 0, body: text, commentId: newCommentId, listId: listId}]);
+            setList([...listState, {username: name, upvotes: 0, bestBadges: 0, worstBadges: 0, body: text, commentId: newCommentId, listId: listId, consecUpvotes: 0, consecDownvotes: 0}]);
 
         }
         setModalVisible(!modalVisible)
