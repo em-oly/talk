@@ -301,6 +301,10 @@ const Comment = (props) => {
                         <View style={styles.badge}>
                         <AntDesign name='Trophy' size={18} color="gold"/>
                         </View>
+                        <View style={styles.badgeCount}> 
+                            <Text style={styles.badgeStyle}>x{bestBadgeCounter}</Text>
+                        </View>
+                    </View>
             
                         ): null}
                         {badBadge ? (
@@ -318,7 +322,7 @@ const Comment = (props) => {
                     {"\n"}
                     <Text style={styles.bodyText}>{body}</Text>
                 </Text>
-            </View>
+         
             ): null}
             
     
