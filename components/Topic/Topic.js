@@ -17,10 +17,18 @@ const Topic = ({ route }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [text, onChangeText] = useState("");
     const [firstLoad, setIsLoading] = useState(true);
+    const [disabled, setDisabled] = useState(false);
     const [listState, setList] = useState([]);
+    const [replyColor, setReplyColor] = useState("#2196F3");
 
 
-
+    const disableReply = async (text, username) => {
+        addComment(text, username);
+        setReplyColor("#808080");
+        setDisabled(true);
+        setTimeout(() => {setDisabled(false); setReplyColor("#2196F3");}, 5000);
+        setModalVisible(!modalVisible);
+    };
 
     // Retrieves all comments for a prompt
     const getComments = async (listId) => {
@@ -41,14 +49,6 @@ const Topic = ({ route }) => {
 
     };
 
-    //delays comment function
-    function delayer(ms){
-        return new Promise((resolve, reject)=>{
-          setTimeout(()=>{
-            resolve();
-          }, ms)
-        })
-      };
 
     //Handles textinput and adds new comment to database
     const addComment = async (text, name) => {
@@ -67,7 +67,6 @@ const Topic = ({ route }) => {
                 consecDownvotes: 0
             });
             setModalVisible(!modalVisible)
-            await delayer(10000); // delay comment by 10 seconds
             newCommentId = newComment.id;
             setList([...listState, {username: name, upvotes: 0, bestBadges: 0, worstBadges: 0, body: text, commentId: newCommentId, listId: listId, consecUpvotes: 0, consecDownvotes: 0}]);
         }
@@ -92,7 +91,17 @@ const Topic = ({ route }) => {
                     <Text style={styles.hashtags}>{hashtags}</Text>
                     </Text>
                     <Pressable
-                        style={[styles.button, styles.buttonOpen]}
+                        disabled={disabled}
+                        backgroundColor= {"#2196F3"}
+                        style={{
+                            borderRadius: 20,
+                            padding: 10,
+                            elevation: 2,
+                            marginBottom: 20,
+                            alignSelf: "flex-end",
+                            right: 10,
+                            backgroundColor: replyColor
+                        }}
                         onPress={() => setModalVisible(true)}
                     >
                         <Text style={styles.textStyle}>Reply</Text>
@@ -121,7 +130,7 @@ const Topic = ({ route }) => {
                             />
                             <Pressable
                             style={[styles.button, styles.buttonClose]}
-                            onPress={() => addComment(text, username)}
+                            onPress={() =>disableReply(text, username)}
                             >
                             <Text style={styles.textStyle}>Submit</Text>
                             </Pressable>
@@ -131,7 +140,6 @@ const Topic = ({ route }) => {
                     </Modal>
                 </View>
                     <FlatList
-                    
                     style={styles.commentsContainer}
                     data={listState}
                     renderItem={({item}) =>
